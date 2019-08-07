@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "required": [
+    "description"
+  ],
+  "properties": {
+    "description": {
+      "type": "string"
+    },
+    "properties": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-zA-Z]+": {
+          "anyOf": [
+            {
+              "required": [
+                "description",
+                "type"
+              ],
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "string",
+                    "number",
+                    "boolean",
+                    "object",
+                    "integer"
+                  ]
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "$ref"
+              ],
+              "properties": {
+                "$ref": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "required": [
+                "items"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "emum": [
+                    "array"
+                  ]
+                },
+                "items": {
+                  "oneOf": [
+                    {
+                      "required": [
+                        "$ref"
+                      ],
+                      "properties": {
+                        "$ref": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    {
+                      "required": [
+                        "type"
+                      ],
+                      "properties": {
+                        "type": {
+                          "enum": [
+                            "string",
+                            "number",
+                            "boolean"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
