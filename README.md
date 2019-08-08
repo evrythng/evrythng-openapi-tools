@@ -6,8 +6,11 @@ files using a standardised directory and file naming convention.
 
 ## Installation
 
-2. `npm install`
-3. `npm i -g .` to install as a the CLI command `evrythng-openapi-tools`
+Install as a the CLI command `evrythng-openapi-tools`:
+
+```
+$ npm i -g evrythng-openapi-tools
+```
 
 
 ## Usage
@@ -30,7 +33,7 @@ convention by providing paths to `base.yaml` files.
 > after the output directory. Each must meet the directory structure outlined
 > below.
 
-`evrythng-openapi-tools join $INPUT_DIR $OUTPUT_DIR [$INPUT_DIR_2 ...]`
+`$ evrythng-openapi-tools join $inputDir $outputDir [$inputDir2, ...]`
 
 
 ### Split
@@ -39,14 +42,14 @@ Split a single OpenAPI spec file into components that meet the standardised
 directory and file naming convention by providing the full spec and desired
 output directory.
 
-`evrythng-openapi-tools split $INPUT_FILE $OUTPUT_DIR`
+`$ evrythng-openapi-tools split $inputFile $outputDir`
 
 
 ### Validate
 
 Validate an existing or joined OpenAPI spec file.
 
-`evrythng-openapi-tools validate $INPUT_FILE`
+`$ evrythng-openapi-tools validate $inputFile`
 
 
 ### Print Fields
@@ -54,14 +57,14 @@ Validate an existing or joined OpenAPI spec file.
 Print the properties of a schema as a list of fields + attributes for
 documentation purposes.
 
-`evrythng-openapi-tools print-fields $INPUT_FILE $SCHEMA_NAME`
+`$ evrythng-openapi-tools print-fields $inputFile $schemaName`
 
 
 ### Print Schema
 
 Print a reduced JSON Schema of a schema component for documentation purposes.
 
-`evrythng-openapi-tools print-schema $INPUT_FILE $SCHEMA_NAME`
+`$ evrythng-openapi-tools print-schema $inputFile $schemaName`
 
 
 ### Print Operation
@@ -69,7 +72,7 @@ Print a reduced JSON Schema of a schema component for documentation purposes.
 Print a ReadMe.io-compatible Request/Response widget pair, featuring muliple
 language examples, by summary such as 'Read all Thngs'.
 
-`evrythng-openapi-tools print-operation $INPUT_FILE $SUMMARY`
+`$ evrythng-openapi-tools print-operation $inputFile $summary`
 
 
 ### Lint Schemas and Paths
@@ -77,7 +80,7 @@ language examples, by summary such as 'Read all Thngs'.
 Lint all in `schemas` and `paths` for common things like `example`, and
 `description` to help ensure format consistency.
 
-`evrythng-openapi-tools lint $INPUT_FILE`
+`$ evrythng-openapi-tools lint $inputFile`
 
 
 ## Directory Structure
