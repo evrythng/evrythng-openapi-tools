@@ -38,6 +38,33 @@
             }
           }
         },
+        "requestBody": {
+          "required": [
+            "content"
+          ],
+          "properties": {
+            "content": {
+              "required": [
+                "application/json"
+              ],
+              "properties": {
+                "application/json": {
+                  "required": [
+                    "schema",
+                    "example"
+                  ],
+                  "properties": {
+                    "schema": {
+                      "required": [
+                        "$ref"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
         "x-api-keys": {
           "type": "array",
           "items": {
@@ -55,7 +82,7 @@
         "responses": {
           "additionalProperties": false,
           "patternProperties": {
-            "200|201|202|204|301|307|400|401|404|409|500": {
+            "200|201|202|204|301|307|400|401|404|409|415|500": {
               "required": [
                 "description"
               ],
