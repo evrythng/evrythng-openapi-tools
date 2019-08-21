@@ -13,9 +13,19 @@
         "^[a-zA-Z]+": {
           "anyOf": [
             {
+              "type": "object",
               "required": [
-                "description",
-                "type"
+                "$ref"
+              ],
+              "properties": {
+                "$ref": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "required": [
+                "description"
               ],
               "properties": {
                 "description": {
@@ -34,19 +44,9 @@
               }
             },
             {
-              "type": "object",
               "required": [
-                "$ref"
-              ],
-              "properties": {
-                "$ref": {
-                  "type": "string"
-                }
-              }
-            },
-            {
-              "required": [
-                "items"
+                "items",
+                "description"
               ],
               "properties": {
                 "type": {
@@ -54,6 +54,9 @@
                   "emum": [
                     "array"
                   ]
+                },
+                "description": {
+                  "type": "string"
                 },
                 "items": {
                   "oneOf": [

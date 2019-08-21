@@ -9,32 +9,41 @@ and schemas a _lot_ easier.
 
 ### `SchemaObject.schema.json`
 
-Ensures that:
+Requires that:
 
-* Each `schemas` item has a `description` and `properties`.
+* Each `schemas` item has a `description`.
 * Each `properties` item has a `description`.
 * Each `properties` item is either:
+  * A `$ref`
   * A `string`, `number`, `boolean`, or `object` type with a `description`.
-  * An `array` type with either:
-    * `items` with type `string`, `number`, or `boolean`.
+  * An `array` type with `description` and either:
+    * `items` with `type` `string`, `number`, or `boolean`.
     * `items` with `$ref`.
+
+Note: `type` is not required for `properties` items to cater for generic object
+fields that may be any type, such as `customFields`.
 
 
 ### `PathObject.schema.json`
 
-Ensures that:
+Requires that:
 
-* Each object has a method one of `post`, `put`, `get`, or `delete`.
+* Each property is a method, one of `post`, `put`, `get`, or `delete`.
 * Each operation has `summary`, `description`, `tags` (max 1), `x-api-keys`,
   and `responses`.
   * `x-api-keys` is some of `Operator`, `Application`, `Trusted Application`,
     `Application User`, or `Device`.
 * If `parameters` are specified, they are objects referring to a `$ref`.
+* If `requestBody` is specified, it is of type `content.application/json` and:
+  * That media type contains both `schema` and `example`.
+  * The `schema` referrring to a `$ref`.
 * Each `responses` object has:
-  * A result code of `200`, `201`, `202`, `204`, `301`, `307`, `400`, `401`,
-    `404`, `409`, or `500`.
   * A `description`.
+  * A result code of `200`, `201`, `202`, `204`, `301`, `307`, `400`, `401`,
+    `404`, `409`, `415`, or `500`.
   * If `content` is specified, it is of type `application/json` and contains:
-    * A `schema` referrring to a `$ref`.
-    * or a `schema` of type `array` where each of `items` refers to a `$ref`.
+    * A `schema` referrring to a `$ref`
+    * OR a `schema` of type `array` where each of `items` refers to:
+      * A `$ref`.
+      * OR a basic `type`.
     * An `example`.

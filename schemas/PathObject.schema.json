@@ -55,8 +55,22 @@
                   ],
                   "properties": {
                     "schema": {
-                      "required": [
-                        "$ref"
+                      "oneOf": [
+                        {
+                          "required": [
+                            "$ref"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "type"
+                          ],
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            }
+                          }
+                        }
                       ]
                     }
                   }
@@ -101,7 +115,9 @@
                         "schema": {
                           "anyOf": [
                             {
-                              "required": ["$ref"],
+                              "required": [
+                                "$ref"
+                              ],
                               "properties": {
                                 "$ref": {
                                   "type": "string"
@@ -120,14 +136,28 @@
                                   ]
                                 },
                                 "items": {
-                                  "required": [
-                                    "$ref"
-                                  ],
-                                  "properties": {
-                                    "$ref": {
-                                      "type": "string"
+                                  "oneOf": [
+                                    {
+                                      "required": [
+                                        "$ref"
+                                      ],
+                                      "properties": {
+                                        "$ref": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "required": [
+                                        "type"
+                                      ],
+                                      "properties": {
+                                        "type": {
+                                          "type": "string"
+                                        }
+                                      }
                                     }
-                                  }
+                                  ]
                                 }
                               }
                             }
