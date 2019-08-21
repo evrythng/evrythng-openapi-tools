@@ -47,6 +47,10 @@ const printStats = () => {
   console.log(`\nPassed: ${stats.passed}`);
   console.log(`Failed: ${stats.failed}`);
   console.log(`Errors: ${stats.errors}\n`);
+
+  if (stats.failed || stats.errors) {
+    process.exitCode = 1;
+  }
 };
 
 /**
