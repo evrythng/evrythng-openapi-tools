@@ -40,12 +40,10 @@ const buildAttributeString = (schema, defName, key, derefProp) => {
     result += 'array of ';
 
     // ... of named objects
-    if (derefProp.items.$ref) {
-      result += derefProp.items.$ref;
-    }
-
-    // ... of basic data
-    if (derefProp.items.type) {
+    const { items } = schema.properties[key];
+    if (items && items.$ref) {
+      result += items.$ref.split('/')[3];
+    } else {
       // ... of basic named types, or basic data types
       result += (derefProp.items.type === 'object' && defName) ? defName : derefProp.items.type;
     }
