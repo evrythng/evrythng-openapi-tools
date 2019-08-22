@@ -37,8 +37,8 @@ const fold = (input) => {
       lines.splice(i + 1, 2);
     }
 
-    // Multi-line arrays
-    if (line.includes(' [')) {
+    // Multi-line arrays (but not arrays of objects)
+    if (line.includes(' [') && !lines[i + 1].includes(' {')) {
       const endLine = lines.slice(i).find(item => item.endsWith(']') || item.endsWith('],'));
       const items = lines.slice(i + 1, lines.indexOf(endLine)).map(item => item.trim());
       lineStr += `${items.join(' ')}${endLine.endsWith(']') ? ']' : '],'}`;
