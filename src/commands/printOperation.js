@@ -46,23 +46,23 @@ const fixupPath = path => path.replace('{', ':').replace('}', '');
  * @returns {object} Object containing response schema's type and its name.
  */
 const getSchemaLookupInfo = (parent) => {
-  let $ref;
-  if (parent.$ref) {
-    // Simple schema use
-    $ref = parent.$ref;
-  } else if(parent.content) {
-    let schema;
+  if (!parent.content) {
+    throw new Error('responseBody content not implemented!');
+  }
 
-    // Complex schema use
-    schema = parent.content['application/json'].schema;
-    if (!schema) {
-      throw new Error(`${JSON.stringify(parent)} had no schema!`);
+  const { schema } = parent.content['application/json'];
+  if (!schema) {
+    throw new Error(`${JSON.stringify(parent)} had no schema!`);
+  }
+
+  // Handle arrays
+  let { $ref }  = schema;
+  if (schema.type === 'array') {
+    if (!schema.items.$ref) {
+      throw new Error('Array type items are not defined with $ref');
     }
 
-    $ref = schema.$ref;
-  } else {
-    // ???
-    throw new Error(`${JSON.stringify(parent)} had no found schema of any kind!`);
+    ({ $ref } = schema.items);
   }
 
   const [, , type, schemaName] = $ref.split('/');
@@ -79,10 +79,10 @@ const generateHttpSnippet = (data) => {
   const { operation, method, path } = data;
   let result = `${method.toUpperCase()} ${fixupPath(path)}\n`;
   if (['post', 'put'].includes(method)) {
-    result += 'Content-Type: application/json';
+    result += 'Content-Type: application/json\n';
   }
 
-  result += `\nAuthorization: $API_KEY`;
+  result += `Authorization: $API_KEY`;
 
   const { requestBody } = operation;
   if (requestBody) {
@@ -117,27 +117,70 @@ const generateCurlSnippet = (data) => {
   if (operation.requestBody) {
     const { schemaName, type } = getSchemaLookupInfo(requestBody);
 
-    let example;
-    if (type === 'schemas') {
-      example = operation.requestBody.content['application/json'].example;
-    } else {
-      // Find the example
-      const schemaData = spec.components[type][schemaName];
-      if (!schemaData) {
-        throw new Error(`${path} has no schemaData in ${type}!`);
-      }
-
-      if (schemaData.content && schemaData.content['application/json']) {
-        example = schemaData.content['application/json'].example;
-        if (!example) {
-          throw new Error(`${schemaName} has no example!`);
-        }
-      } else {
-        throw new Error('Unable to extract example');
-      }
+    const { example } = operation.requestBody.content['application/json'];
+    if (!example) {
+      throw new Error('requestBody has no example!');
     }
 
     result += `  -d '${JSON.stringify(example, null, 2)}'`;
+  }
+
+  return result;
+};
+
+/**
+ * Transform JSON string to JS object string.
+ *
+ * {               >  {
+ *   "foo": "bar"  >    foo: 'bar'
+ * }               >  }
+ *
+ * @param {string} jsonStr - String input.
+ * @returns {string} JS object string.
+ */
+const formatJsonForJs = jsonStr => jsonStr
+  .split('": ').join(': ')
+  .split('  "').join('  ')
+  .split('"').join('\'') + ';\n\n';
+
+/**
+ * Generate an evrythng.js example snippet (or starting point).
+ *
+ * @param {object} data - Data about the operation.
+ * @returns {string} Formatted evrythng.js snippet.
+ */
+const generateJsSnippet = (data) => {
+  const { operation, method, path } = data;
+  let result = '';
+
+  // Add a payload object
+  const { requestBody } = operation;
+  if (requestBody) {
+    result += 'const payload = ';
+
+    const { example } = operation.requestBody.content['application/json'];
+    if (!example) {
+      throw new Error('requestBody has no example!');
+    }
+
+    result += formatJsonForJs(JSON.stringify(example, null, 2));
+  }
+
+  // Add the operation
+  result += 'operator.TYPE()';
+
+  // Add the method
+  const map = {
+    post: '.create(payload)',
+    get: '.read()',
+    put: '.update(payload)',
+    delete: '.delete();'
+  };
+  result += map[method];
+
+  // Lastly
+  if (method !== 'delete') {
+    result += '\n  .then(console.log);';
   }
 
   return result;
@@ -172,13 +215,23 @@ const generateResponseSnippet = (data) => {
 
   // Take the one and only response
   const [responseCode] = Object.keys(operation.responses);
-  const { type, schemaName } = getSchemaLookupInfo(operation.responses[responseCode]);
+  const response = operation.responses[responseCode];
+  const { type, schemaName } = getSchemaLookupInfo(response);
 
   let result = `HTTP/1.1 ${responseCode} ${getResponseText(responseCode)}\n`;
-  result += 'Content-Type: application/json\n\n';
+  if (['post', 'get', 'put'].includes(method)) {
+    result += 'Content-Type: application/json';
+  }
 
-  // TODO: Get and print the example
+  result += '\n\n';
 
+  // Get and print the example response
+  const { example } = response.content['application/json'];
+  if (!example) {
+    throw new Error(`No example implemented for response ${responseCode}`);
+  }
+
+  result += JSON.stringify(example, null, 2);
   return result;
 };
 
@@ -210,7 +263,7 @@ const printRequest = data => printReadMeDataBlock({
   }, {
     name: 'evrythng.js',
     language: 'javascript',
-    code: 'TODO',
+    code: generateJsSnippet(data),
   }],
 });
 
@@ -256,7 +309,7 @@ const execute = async (specPath, summary, rest) => {
 
   console.log();
   printOperation(summary);
-  console.log('\n\n>>> Please be aware this output still needs some editing (API key, schema name etc)\n');
+  console.log('\n\n>>> Please be aware this output still needs some editing (API keys, \'See also\', etc)\n');
 };
 
 module.exports = {

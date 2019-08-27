@@ -19,10 +19,10 @@ const stats = {
  * @param {string} kind - Kind of objects being linted.
  */
 const lintObjects = (objects, schema, kind) => {
-  process.stdout.write(`\n${kind}s`);
+  process.stdout.write(`\n${kind}s\n`);
 
   Object.entries(objects).forEach(([key, value], index) => {
-    process.stdout.write(`\n  ${key}`);
+    process.stdout.write(`  ${key}`);
 
     const errors = lintWithSchema(schema, value);
     if (!errors.length) {
@@ -32,13 +32,12 @@ const lintObjects = (objects, schema, kind) => {
     }
 
     stats.failed += 1;
-    process.stdout.write('\n');
+    process.stdout.write('\n\n');
     errors.forEach((msg, i) => console.log(`    Error ${i}: ${msg}`));
+    process.stdout.write('\n');
     stats.errors += errors.length;
   });
 };
-
-// TOOD: lint 'requestBodies' and 'parameters'
 
 /**
  * Print report.
