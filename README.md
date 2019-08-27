@@ -18,6 +18,7 @@ $ npm i -g evrythng-openapi-tools
 - [Join](#join)
 - [Split](#split)
 - [Validate](#validate)
+- [Print Definition](#print-definition)
 - [Print Fields](#print-fields)
 - [Print Schema](#print-schema)
 - [Print Operation](#print-operation)
