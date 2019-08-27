@@ -5,9 +5,13 @@ const { generateSchemaText } = require('./printSchema');
 const { generateReadMeDataBlock, buildOperationMap } = require('../util');
 
 /**
- * Find the example from the specified request.
+ * Generate example object text using a summary.
+ *
+ * @param {object} spec - Full spec.
+ * @param {string} exampleSummary - Summary for operation that has an example.
+ * @returns {string} Example object text.
  */
-const findSchemaExample = (spec, derefSpec, exampleSummary) => {
+const generateExampleText = (spec, exampleSummary) => {
   const found = buildOperationMap(spec).find(p => p.operation.summary === exampleSummary);
   if (!found) {
     throw new Error('Summary not found');
@@ -19,11 +23,7 @@ const findSchemaExample = (spec, derefSpec, exampleSummary) => {
       return example !== undefined;
     });
 
-  return responseFound.content['application/json'].example;
-};
-
-const generateExampleText = (spec, derefSpec, exampleSummary) => {
-  const example = findSchemaExample(spec, derefSpec, exampleSummary);
+  const example = responseFound.content['application/json'].example;
   if (!example) {
     throw new Error(`No example for ${exampleSummary} was found`);
   }
@@ -62,7 +62,7 @@ const execute = async (specPath, schemaName, exampleSummary, rest) => {
     }, {
       name: 'Example',
       language: 'json',
-      code: generateExampleText(spec, derefSpec, exampleSummary),
+      code: generateExampleText(spec, exampleSummary),
     }],
   });
   console.log(`\n${output}`);
