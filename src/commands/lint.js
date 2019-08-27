@@ -1,6 +1,6 @@
 const { existsSync } = require('fs');
 const yamlJs = require('yamljs');
-const lintWithSchema = require('../modules/lintWithSchema');
+const { lintWithSchema } = require('../util');
 
 const PATH_OBJECT_SCHEMA = require('../../schemas/PathObject.schema.json');
 const SCHEMA_OBJECT_SCHEMA = require('../../schemas/SchemaObject.schema.json');

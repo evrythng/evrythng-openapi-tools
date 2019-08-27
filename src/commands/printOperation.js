@@ -1,27 +1,8 @@
 const refParser = require('json-schema-ref-parser');
 const yamlJs = require('yamljs');
+const { buildOperationMap, generateReadMeDataBlock } = require('../util');
 
 let spec;
-
-/**
- * Build a map of operations to their path and method.
- *
- * @returns {object[]} List of objects containing operation, path, method.
- */
-const buildOperationMap = () => {
-  const result = [];
-  Object.keys(spec.paths).forEach((pathKey) => {
-    Object.keys(spec.paths[pathKey]).forEach((operationKey) => {
-      const operation = spec.paths[pathKey][operationKey];
-      result.push({
-        method: operationKey,
-        operation,
-        path: pathKey,
-      });
-    });
-  });
-  return result;
-};
 
 /**
  * Print the operation's summary as a preamble.
@@ -236,20 +217,12 @@ const generateResponseSnippet = (data) => {
 };
 
 /**
- * Print a ReadMe.io format data block.
- *
- * @param {object} readMeData - ReadMe format JSON data.
- */
-const printReadMeDataBlock = readMeData =>
-  console.log(`[block:code]\n${JSON.stringify(readMeData, null, 2)}\n[/block]`);
-
-/**
  * Print the various request example snippets.
  *
  * @param {object} data - Data about the operation.
  * @returns {string} Formatted request snippet in multiple languages.
  */
-const printRequest = data => printReadMeDataBlock({
+const generateRequest = data => generateReadMeDataBlock({
   codes: [{
     language: 'http',
     code: generateHttpSnippet(data),
@@ -273,7 +246,7 @@ const printRequest = data => printReadMeDataBlock({
  * @param {object} data - Data about the operation.
  * @returns {string} Formatted response snippets.
  */
-const printResponse = data => printReadMeDataBlock({
+const generateResponse = data => generateReadMeDataBlock({
   codes: [{
     language: 'http',
     code: generateResponseSnippet(data),
@@ -286,15 +259,15 @@ const printResponse = data => printReadMeDataBlock({
  * @param {string} summary - The operation summary to find.
  */
 const printOperation = (summary) => {
-  const map = buildOperationMap();
+  const map = buildOperationMap(spec);
   const found = map.find(p => p.operation.summary === summary);
   if (!found) {
     throw new Error('Summary not found');
   }
 
   printPreamble(found);
-  printRequest(found);
-  printResponse(found);
+  console.log(generateRequest(found));
+  console.log(generateResponse(found));
 };
 
 /**

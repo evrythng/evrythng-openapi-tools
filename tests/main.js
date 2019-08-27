@@ -73,7 +73,7 @@ describe('evrythng-openapi-tools', () => {
       const derefSpec = await refParser.dereference(JSON.parse(JSON.stringify(SPEC)));
       const schemaName = 'ExampleDocument';
 
-      const result = printFields.printProperties(SPEC, derefSpec, schemaName);
+      const result = printFields.generateFieldsText(SPEC, derefSpec, schemaName);
       expect(result).to.equal(expected);
     });
   });

@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "test": "mocha tests/index.js"
+    "test": "mocha tests/main.js"
   },
   "bin": {
     "evrythng-openapi-tools": "bin/cli.js"

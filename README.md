@@ -52,6 +52,13 @@ Validate an existing or joined OpenAPI spec file.
 `$ evrythng-openapi-tools validate $inputFile`
 
 
+### Print Definition
+
+Print a trio of 'Fields', 'Schema', and 'Example' for documentation purposes.
+
+`$ evrythng-openapi-tools print-schema $inputFile $schemaName`
+
+
 ### Print Fields
 
 Print the properties of a schema as a list of fields + attributes for

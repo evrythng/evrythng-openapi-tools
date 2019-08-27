@@ -1,6 +1,6 @@
 const refParser = require('json-schema-ref-parser');
 const yamlJs = require('yamljs');
-const expand = require('../modules/expand');
+const { expand } = require('../util');
 
 /**
  * Fold up the schema's single line objects and multi-line arrays.

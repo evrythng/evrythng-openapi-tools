@@ -139,7 +139,7 @@ const formatAllOfItem = (item, spec, derefSpec, schemaName) => {
  *
  * @returns {string} Printable string representing the schema's fields.
  */
-const printProperties = (spec, derefSpec, schemaName) => {
+const generateFieldsText = (spec, derefSpec, schemaName) => {
   const { properties, allOf } = derefSpec.components.schemas[schemaName];
   if (!properties && !allOf) {
     throw new Error('No properties to display.');
@@ -174,10 +174,10 @@ const execute = async (specPath, schemaName, rest) => {
   }
 
   console.log();
-  console.log(printProperties(spec, derefSpec, schemaName));
+  console.log(generateFieldsText(spec, derefSpec, schemaName));
 };
 
 module.exports = {
-  printProperties,
+  generateFieldsText,
   execute,
 };
