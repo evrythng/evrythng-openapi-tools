@@ -56,8 +56,9 @@ Validate an existing or joined OpenAPI spec file.
 ### Print Definition
 
 Print a trio of 'Fields', 'Schema', and 'Example' for documentation purposes.
+The `summaryName` should be a `summary` that uses the schema in a `response`.
 
-`$ evrythng-openapi-tools print-schema $inputFile $schemaName`
+`$ evrythng-openapi-tools print-definition $inputFile $schemaNam $summaryName`
 
 
 ### Print Fields
