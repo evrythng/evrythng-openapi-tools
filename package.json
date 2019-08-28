@@ -1,6 +1,6 @@
 {
   "name": "evrythng-openapi-tools",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Tools for building, splitting, and validating OpenAPI specs",
   "main": "src/index.js",
   "scripts": {
