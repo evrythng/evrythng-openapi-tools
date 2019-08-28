@@ -71,7 +71,10 @@ const execute = (baseDir, outputDir, rest) => {
   }
 
   mergeRepoSpec(baseDir);
-  rest.forEach(mergeRepoSpec);
+
+  if (rest) {
+    rest.forEach(mergeRepoSpec);
+  }
 
   const yamlStr = yamlJs.stringify(baseSpec, INLINE_AFTER, INDENT);
   writeFileSync(`${outputDir}/${OUTPUT_NAME}.yaml`, yamlStr, 'utf8');
