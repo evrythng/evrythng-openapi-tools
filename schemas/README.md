@@ -38,12 +38,14 @@ Requires that:
   * That media type contains both `schema` and `example`.
   * The `schema` referrring to a `$ref`.
 * Each `responses` object has:
-  * A `description`.
-  * A result code of `200`, `201`, `202`, `204`, `301`, `307`, `400`, `401`,
-    `404`, `409`, `415`, or `500`.
-  * If `content` is specified, it is of type `application/json` and contains:
-    * A `schema` referrring to a `$ref`
-    * OR a `schema` of type `array` where each of `items` refers to:
-      * A `$ref`.
-      * OR a basic `type`.
-    * An `example`.
+  * A result code of `200`, `201`:
+    * A `description`.
+    * If `content` is specified, it is of type `application/json` and contains:
+      * An `example`.
+      * A `schema` referrring to a `$ref`
+      * OR a `schema` of type `array` where each of `items` refers to:
+        * A `$ref`.
+        * OR a basic `type`.
+  * A result code of `202`, `204`, `301`, `307`, `400`, `401`, `404`, `409`,
+    `415`, or `500`:
+    * At least a `description`, optionally an `example`.
