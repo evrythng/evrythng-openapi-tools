@@ -55,11 +55,10 @@ const buildAttributeString = (schema, defName, key, derefProp) => {
   }
 
   // Check if it is required
-  // FIXME: Align use of required (user perspective vs Dredd perspective)
-  // const { required } = schema;
-  // if (required && required.includes(key)) {
-  //   result += ', required';
-  // }
+  const { required } = schema;
+  if (required && required.includes(key)) {
+    result += ', required';
+  }
 
   // and its enumerated
   if (derefProp.enum) {
@@ -173,8 +172,7 @@ const execute = async (specPath, schemaName, rest) => {
     return;
   }
 
-  console.log();
-  console.log(generateFieldsText(spec, derefSpec, schemaName));
+  console.log(generateFieldsText(spec, derefSpec, schemaName).trim());
 };
 
 module.exports = {

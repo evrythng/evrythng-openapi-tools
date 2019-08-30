@@ -1,7 +1,7 @@
 const { validate } = require('jsonschema');
 
 /** Fields filtered from view **/
-const FILTERED_FIELDS = ['required'];
+const FILTERED_FIELDS = [];
 /** Fields that are not to be expanded **/
 const EXPANDABLE = [
   'CustomFieldsDocument', 'IdentifiersDocument', 'ContributionsDocument', 'GeoJSONPointDocument',
