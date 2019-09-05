@@ -1,21 +1,23 @@
 const join = require('./commands/join');
-const split = require('./commands/split');
-const validate = require('./commands/validate');
+const lint = require('./commands/lint');
+const printApiStatus = require('./commands/printApiStatus');
 const printDefinition = require('./commands/printDefinition');
 const printFields = require('./commands/printFields');
-const printSchema = require('./commands/printSchema');
 const printOperation = require('./commands/printOperation');
-const lint = require('./commands/lint');
+const printSchema = require('./commands/printSchema');
+const split = require('./commands/split');
+const validate = require('./commands/validate');
 
 const COMMANDS = {
   join,
   split,
   validate,
   lint,
+  'print-api-status': printApiStatus,
   'print-definition': printDefinition,
   'print-fields': printFields,
-  'print-schema': printSchema,
   'print-operation': printOperation,
+  'print-schema': printSchema,
 };
 
 /**

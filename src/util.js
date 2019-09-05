@@ -84,14 +84,17 @@ const generateReadMeDataBlock = readMeData =>
 const buildOperationMap = (spec) => {
   const result = [];
   Object.keys(spec.paths).forEach((pathKey) => {
-    Object.keys(spec.paths[pathKey]).forEach((operationKey) => {
-      const operation = spec.paths[pathKey][operationKey];
-      result.push({
-        method: operationKey,
-        operation,
-        path: pathKey,
+    Object.keys(spec.paths[pathKey])
+      .filter(operationKey => operationKey !== 'x-api-status') // TODO: multiple exceptions
+      .forEach((operationKey) => {
+        const operation = spec.paths[pathKey][operationKey];
+        result.push({
+          method: operationKey,
+          operation,
+          path: pathKey,
+          pathObj: spec.paths[pathKey],
+        });
       });
-    });
   });
   return result;
 };

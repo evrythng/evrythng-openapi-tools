@@ -18,6 +18,7 @@ $ npm i -g evrythng-openapi-tools
 - [Join](#join)
 - [Split](#split)
 - [Validate](#validate)
+- [Print API Status](#print-api-status)
 - [Print Definition](#print-definition)
 - [Print Fields](#print-fields)
 - [Print Schema](#print-schema)
@@ -51,6 +52,24 @@ output directory.
 Validate an existing or joined OpenAPI spec file.
 
 `$ evrythng-openapi-tools validate $inputFile`
+
+
+### Print API Status
+
+Print the 'API Status' section for a given `tag`, such as `Thngs`. Paths with
+operations using the tag will be listed as 'Stable' unless the path has
+`x-api-status` set to something else, such as 'Beta'. For example:
+
+```
+/thngs/{thngId}
+  x-api-status: Beta
+  get:
+    tags:
+      - Thngs
+    ...
+```
+
+`$ evrythng-openapi-tools print-api-status $inputFile $tag`
 
 
 ### Print Definition
