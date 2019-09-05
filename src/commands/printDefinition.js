@@ -4,6 +4,9 @@ const { generateFieldsText } = require('./printFields');
 const { generateSchemaText } = require('./printSchema');
 const { generateReadMeDataBlock, buildOperationMap } = require('../util');
 
+/** Definitions that don't go in See Also **/
+const SEE_ALSO_EXCEPTIONS = ['CustomFieldsDocument', 'IdentifiersDocument'];
+
 /**
  * Generate example object text using a summary.
  *
@@ -29,6 +32,23 @@ const generateExampleText = (spec, exampleSummary) => {
   }
 
   return JSON.stringify(example, null, 2);
+};
+
+const getSeeAlsoList = (spec, schemaName) => {
+  const list = [];
+  const definition = spec.components.schemas[schemaName];
+  Object.entries(definition.properties).forEach(([propName, propDef]) => {
+    if (propDef.$ref && propDef.$ref.includes('Document')) {
+      list.push(propDef.$ref.split('/')[3]);
+      return;
+    }
+
+    if (propDef.type === 'array' && propDef.items.$ref) {
+      list.push(propDef.items.$ref.split('/')[3]);
+    }
+  });
+
+  return list;
 };
 
 /**
@@ -65,7 +85,18 @@ const execute = async (specPath, schemaName, exampleSummary, rest) => {
       code: generateExampleText(spec, exampleSummary),
     }],
   });
+
+  // See also
+  const seeAlsoMap = getSeeAlsoList(spec, schemaName).filter(p => !SEE_ALSO_EXCEPTIONS.includes(p));
+  if (seeAlsoMap.length) {
+    output += '\nSee also: ';
+    const linkTags = seeAlsoMap
+      .map(defName => '[`' + defName + '`](#section-' + defName.toLowerCase() + '-data-model)');
+    output += linkTags.join(', ');
+  }
+
   console.log(`\n${output}`);
+  console.log('\n\n>>> Please be aware this output still needs some editing (\'See also\', etc)\n');
 };
 
 module.exports = {

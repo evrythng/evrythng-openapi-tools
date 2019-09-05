@@ -26,7 +26,7 @@ const main = () => {
   const rest = process.argv.splice(6);
 
   if (!COMMANDS[cmd]) {
-    console.log(`Invalid command, choose from ${Object.keys(COMMANDS).join(', ')}`);
+    console.log(`Invalid command, choose from:\n  ${Object.keys(COMMANDS).join('\n  ')}`);
     return;
   }
 
