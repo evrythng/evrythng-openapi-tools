@@ -2,51 +2,9 @@ const { expect } = require('chai');
 const refParser = require('json-schema-ref-parser');
 const printFields = require('../src/commands/printFields');
 const printSchema = require('../src/commands/printSchema');
+const printApiStatus = require('../src/commands/printApiStatus');
 
-const SPEC = {
-  components: {
-    schemas: {
-      ExampleDocument: {
-        description: 'An example document object.',
-        required: ['name', 'fruits', 'location'],
-        properties: {
-          name: {
-            type: 'string',
-            description: 'Friendly name of this resource.',
-          },
-          createdAt: {
-            type: 'integer',
-            description: 'Timestamp when the resource was created.',
-            readOnly: true,
-          },
-          tags: {
-            type: 'array',
-            description: 'Array of string tags associated with this resource.',
-            items: {
-              type: 'string',
-            },
-          },
-          customFields: {
-            type: 'object',
-            description: 'Object of case-sensititve key-value pairs of custom fields associated with the resource.',
-          },
-          fruits: {
-            type: 'string',
-            description: 'One of a list of acceptable fruits.',
-            enum: ['apples', 'lemons'],
-          },
-          location: {
-            $ref: '#/components/schemas/LocationDocument',
-          }
-        },
-      },
-      LocationDocument: {
-        type: 'object',
-        description: 'Object representing a location.',
-      },
-    },
-  },
-};
+const SPEC = require('./testSpec.json');
 
 describe('evrythng-openapi-tools', () => {
   describe('printFields', () => {
@@ -118,6 +76,20 @@ describe('evrythng-openapi-tools', () => {
       const schemaName = 'ExampleDocument';
 
       const result = printSchema.generateSchemaText(derefSpec, schemaName);
+      expect(result).to.equal(expected);
+    });
+  });
+
+  describe('printApiStatus', () => {
+    it('should print expected API Status snippet', async () => {
+      const expected = `**API Status**
+Beta:
+\`/examplePath\`
+Stable:
+\`/examplePath/{exampleId}\`
+___`;
+
+      const result = printApiStatus.generateApiStatusText(SPEC, 'Examples');
       expect(result).to.equal(expected);
     });
   });

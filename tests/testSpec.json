@@ -1,0 +1,71 @@
+{
+  "paths": {
+    "/examplePath": {
+      "x-api-status": "Beta",
+      "get": {
+        "tags": [
+          "Examples"
+        ],
+        "summary": "See an example",
+        "description": "See an example operation, right in the tests!"
+      }
+    },
+    "/examplePath/{exampleId}": {
+      "post": {
+        "tags": [
+          "Examples"
+        ],
+        "summary": "Create an example"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ExampleDocument": {
+        "description": "An example document object.",
+        "required": [
+          "name",
+          "fruits",
+          "location"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Friendly name of this resource."
+          },
+          "createdAt": {
+            "type": "integer",
+            "description": "Timestamp when the resource was created.",
+            "readOnly": true
+          },
+          "tags": {
+            "type": "array",
+            "description": "Array of string tags associated with this resource.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "customFields": {
+            "type": "object",
+            "description": "Object of case-sensititve key-value pairs of custom fields associated with the resource."
+          },
+          "fruits": {
+            "type": "string",
+            "description": "One of a list of acceptable fruits.",
+            "enum": [
+              "apples",
+              "lemons"
+            ]
+          },
+          "location": {
+            "$ref": "#/components/schemas/LocationDocument"
+          }
+        }
+      },
+      "LocationDocument": {
+        "type": "object",
+        "description": "Object representing a location."
+      }
+    }
+  }
+}
