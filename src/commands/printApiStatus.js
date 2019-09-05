@@ -9,7 +9,7 @@ let spec;
  *
  * @param {string} tag - The operation tag to use to find paths.
  */
-const printApiStatus = (tag) => {
+const generateApiStatusText = (tag) => {
   let output = '**API Status**\n';
   const map = buildOperationMap(spec);
   const pathData = map.filter(p => p.operation.tags[0] === tag)
@@ -21,10 +21,7 @@ const printApiStatus = (tag) => {
   // x-api-status can add additional statuses to this map, such as Beta
   const groups = { Stable: [] };
   pathData.forEach(({ path, status }) => {
-    if (!groups[status]) {
-      groups[status] = [];
-    }
-
+    groups[status] = groups[status] || [];
     if (!groups[status].includes(path)) {
       groups[status].push(path);
     }
@@ -32,14 +29,13 @@ const printApiStatus = (tag) => {
 
   Object.entries(groups).forEach(([groupName, groupPaths]) => {
     output += `${groupName}:\n`;
-
     groupPaths.forEach((path) => {
-      output += '`' + path + '`\n'
+      output += '`' + path + '`\n';
     });
   });
 
   output += '___';
-  console.log(output);
+  return output;
 };
 
 /**
@@ -53,10 +49,11 @@ const execute = async (specPath, tag, rest) => {
   }
 
   console.log();
-  printApiStatus(tag);
+  console.log(generateApiStatusText(tag));
   console.log('\n\n>>> Please be aware this output still needs some editing (If APIs are Beta, etc)\n');
 };
 
 module.exports = {
   execute,
+  generateApiStatusText,
 };

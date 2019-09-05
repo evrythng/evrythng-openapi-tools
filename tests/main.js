@@ -8,7 +8,7 @@ const SPEC = {
     schemas: {
       ExampleDocument: {
         description: 'An example document object.',
-        required: ['name', 'createdAt', 'customFields'],
+        required: ['name', 'fruits', 'location'],
         properties: {
           name: {
             type: 'string',
@@ -51,7 +51,8 @@ const SPEC = {
 describe('evrythng-openapi-tools', () => {
   describe('printFields', () => {
     it('should print expected fields for a given schema name', async () => {
-      const expected = `.name (string)
+      // Note trailing space after 'custom fields' is expected from the wrapping
+      const expected = `.name (string, required)
     Friendly name of this resource.
 
 .createdAt (integer, read-only)
@@ -64,10 +65,10 @@ describe('evrythng-openapi-tools', () => {
     Object of case-sensititve key-value pairs of custom fields 
     associated with the resource.
 
-.fruits (string, one of 'apples', 'lemons')
+.fruits (string, required, one of 'apples', 'lemons')
     One of a list of acceptable fruits.
 
-.location (LocationDocument)
+.location (LocationDocument, required)
     Object representing a location.
 `;
       const derefSpec = await refParser.dereference(JSON.parse(JSON.stringify(SPEC)));
@@ -82,6 +83,7 @@ describe('evrythng-openapi-tools', () => {
     it('should print expected schema for a given schema name', async () => {
       const expected = `{
   "description": "An example document object.",
+  "required": ["name", "fruits", "location"],
   "properties": {
     "name": {
       "type": "string",
