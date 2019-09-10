@@ -3,6 +3,9 @@
 Tool to join (build), split, and validate OpenAPI 3.0 YAML API specification
 files using a standardised directory and file naming convention.
 
+Also includes several commands to generate familiar ReadMe.io-compatible
+documentation snippets to help preserve structure and style.
+
 
 ## Installation
 
