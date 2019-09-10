@@ -197,7 +197,6 @@ const generateResponseSnippet = (data) => {
   // Take the one and only response
   const [responseCode] = Object.keys(operation.responses);
   const response = operation.responses[responseCode];
-  const { type, schemaName } = getSchemaLookupInfo(response);
 
   let result = `HTTP/1.1 ${responseCode} ${getResponseText(responseCode)}\n`;
   if (['post', 'get', 'put'].includes(method)) {
@@ -207,12 +206,14 @@ const generateResponseSnippet = (data) => {
   result += '\n\n';
 
   // Get and print the example response
-  const { example } = response.content['application/json'];
-  if (!example) {
-    throw new Error(`No example implemented for response ${responseCode}`);
-  }
+  if (response.content) {
+    const { example } = response.content['application/json'];
+    if (!example) {
+      throw new Error(`No example implemented for response ${responseCode}`);
+    }
 
-  result += JSON.stringify(example, null, 2);
+    result += JSON.stringify(example, null, 2);
+  }
   return result;
 };
 
