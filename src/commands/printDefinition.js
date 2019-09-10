@@ -41,22 +41,19 @@ const generateExampleText = (spec, exampleSummary) => {
  * @param {string} schemaName - Name of the schema to search.
  * @returns {string[]} List of sub schemas to be documented separatey.
  */
-const getSeeAlsoList = (spec, schemaName) => {
-  const list = [];
-  const definition = spec.components.schemas[schemaName];
-  Object.entries(definition.properties).forEach(([propName, propDef]) => {
+const getSeeAlsoList = (spec, schemaName) => Object
+  .entries(spec.components.schemas[schemaName].properties)
+  .reduce((acc, [propName, propDef]) => {
     if (propDef.$ref && propDef.$ref.includes('Document')) {
-      list.push(propDef.$ref.split('/')[3]);
-      return;
+      return acc.concat(propDef.$ref.split('/')[3]);
     }
 
     if (propDef.type === 'array' && propDef.items.$ref) {
-      list.push(propDef.items.$ref.split('/')[3]);
+      return acc.concat(propDef.items.$ref.split('/')[3]);
     }
-  });
 
-  return list;
-};
+    return acc;
+  }, []);
 
 /**
  * Print fields, schema, and example in one widget.
@@ -74,9 +71,11 @@ const execute = async (specPath, schemaName, exampleSummary, rest) => {
     return;
   }
 
-  let output = `## ${schemaName} Data Model\n\n`;
+  // Title and description
+  let output = `___\n\n\n## ${schemaName} Data Model\n\n`;
   output += `${derefSpec.components.schemas[schemaName].description}\n`;
 
+  // Three tab widget with Fields, Schema, and Example
   output += generateReadMeDataBlock({
     codes: [{
       name: 'Fields',
@@ -93,7 +92,7 @@ const execute = async (specPath, schemaName, exampleSummary, rest) => {
     }],
   });
 
-  // See also
+  // See also list
   const seeAlsoMap = getSeeAlsoList(spec, schemaName).filter(p => !SEE_ALSO_EXCEPTIONS.includes(p));
   if (seeAlsoMap.length) {
     output += '\nSee also: ';
@@ -102,10 +101,8 @@ const execute = async (specPath, schemaName, exampleSummary, rest) => {
     output += linkTags.join(', ');
   }
 
-  console.log(`\n${output}`);
+  console.log(`${output}\n___\n`);
   console.log('\n\n>>> Please be aware this output still needs some editing (\'See also\', etc)\n');
 };
 
-module.exports = {
-  execute,
-};
+module.exports = { execute };
