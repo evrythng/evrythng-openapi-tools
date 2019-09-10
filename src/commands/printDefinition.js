@@ -5,7 +5,7 @@ const { generateSchemaText } = require('./printSchema');
 const { generateReadMeDataBlock, buildOperationMap } = require('../util');
 
 /** Definitions that don't go in See Also **/
-const SEE_ALSO_EXCEPTIONS = ['CustomFieldsDocument', 'IdentifiersDocument'];
+const SEE_ALSO_EXCEPTIONS = ['CustomFieldsDocument', 'IdentifiersDocument', 'TagsDocument'];
 
 /**
  * Generate example object text using a summary.
