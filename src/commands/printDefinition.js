@@ -34,6 +34,13 @@ const generateExampleText = (spec, exampleSummary) => {
   return JSON.stringify(example, null, 2);
 };
 
+/**
+ * Get list of Document references that need to be in See Also below the definition.
+ *
+ * @param {object} spec - API spec.
+ * @param {string} schemaName - Name of the schema to search.
+ * @returns {string[]} List of sub schemas to be documented separatey.
+ */
 const getSeeAlsoList = (spec, schemaName) => {
   const list = [];
   const definition = spec.components.schemas[schemaName];
