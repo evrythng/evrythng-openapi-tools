@@ -21,8 +21,8 @@ $ npm i -g evrythng-openapi-tools
 - [Lint Schemas and Paths](#lint-schemas-and-paths)
 - [Print API Status](#print-api-status)
 - [Print Definition](#print-definition)
-  - [Print Fields](#print-fields)
-  - [Print Schema](#print-schema)
+- [Print Fields](#print-fields)
+- [Print Schema](#print-schema)
 - [Print Operation](#print-operation)
 
 
@@ -174,7 +174,7 @@ A file containing a single `requestBody` object, which is the request body
 ProjectDocumentCreateBody.yaml
 ```
 
-### Schema File
+#### Schema File
 
 A file containing a single `schemas` object, which is the schema name. Example:
 
