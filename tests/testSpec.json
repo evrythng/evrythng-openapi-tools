@@ -6,7 +6,7 @@
         "tags": [
           "Examples"
         ],
-        "summary": "See an example",
+        "summary": "See all examples",
         "description": "See an example operation, right in the tests!"
       }
     },
@@ -15,7 +15,64 @@
         "tags": [
           "Examples"
         ],
-        "summary": "Create an example"
+        "summary": "Create an example",
+        "description": "Create a new example.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExampleDocument"
+              },
+              "example": {
+                "name": "Some example object",
+                "tags": [
+                  "example"
+                ],
+                "fruits": [
+                  "apples",
+                  "pairs"
+                ],
+                "location": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.9,
+                    -51.1
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "An example was created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExampleDocument"
+                },
+                "example": {
+                  "name": "Some example object",
+                  "createdAt": 1568109267732,
+                  "tags": [
+                    "example"
+                  ],
+                  "fruits": [
+                    "apples",
+                    "pairs"
+                  ],
+                  "location": {
+                    "type": "Point",
+                    "coordinates": [
+                      -0.9,
+                      -51.1
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   },

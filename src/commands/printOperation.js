@@ -2,15 +2,14 @@ const refParser = require('json-schema-ref-parser');
 const yamlJs = require('yamljs');
 const { buildOperationMap, generateReadMeDataBlock } = require('../util');
 
-let spec;
-
 /**
  * Print the operation's summary as a preamble.
  *
  * @param {object} data - Operation data.
+ * @returns {string} Preamble in full.
  */
-const printPreamble = ({ operation, method }) =>
-  console.log(`\n## ${operation.summary}\n\n${operation.description}`);
+const generatePreamble = ({ operation, method }) =>
+  `\n## ${operation.summary}\n\n${operation.description}`;
 
 /**
  * Adapt OpenAPI path templating to ReadMe.io templating.
@@ -257,35 +256,35 @@ const generateResponse = data => generateReadMeDataBlock({
 /**
  * Print the operation snippets.
  *
+ * @param {object} spec - The API spec.
  * @param {string} summary - The operation summary to find.
+ * @returns {string} The operation snippet in full.
  */
-const printOperation = (summary) => {
+const generateOperationText = (spec, summary) => {
   const map = buildOperationMap(spec);
   const found = map.find(p => p.operation.summary === summary);
   if (!found) {
     throw new Error('Summary not found');
   }
 
-  printPreamble(found);
-  console.log(generateRequest(found));
-  console.log(generateResponse(found));
+  return `___\n\n${generatePreamble(found)}\n${generateRequest(found)}\n${generateResponse(found)}`;
 };
 
 /**
  * Print a ReadMe.io format request/response pair.
  */
 const execute = async (specPath, summary, rest) => {
-  spec = yamlJs.load(specPath);
+  const spec = yamlJs.load(specPath);
   if (!summary) {
     console.log('Please specify an operation summary, such as \'Read all Thngs\'.');
     return;
   }
 
-  console.log();
-  printOperation(summary);
+  console.log(generateOperationText(spec, summary));
   console.log('\n\n>>> Please be aware this output still needs some editing (API keys, \'See also\', etc)\n');
 };
 
 module.exports = {
   execute,
+  generateOperationText,
 };

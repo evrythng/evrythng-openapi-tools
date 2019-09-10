@@ -2,6 +2,7 @@ const { expect } = require('chai');
 const refParser = require('json-schema-ref-parser');
 const printFields = require('../src/commands/printFields');
 const printSchema = require('../src/commands/printSchema');
+const printOperation = require('../src/commands/printOperation');
 const printApiStatus = require('../src/commands/printApiStatus');
 
 const SPEC = require('./testSpec.json');
@@ -93,6 +94,52 @@ ___`;
       expect(result).to.equal(expected);
     });
   });
+
+  describe('printOperation', () => {
+    it('should print expected operation snippet', async () => {
+      const expected = `___
+
+
+## Create an example
+
+Create a new example.
+[block:code]
+{
+  "codes": [
+    {
+      "language": "http",
+      "code": "POST /examplePath/:exampleId\\nContent-Type: application/json\\nAuthorization: $API_KEY\\n\\nExampleDocument"
+    },
+    {
+      "name": "evrythng-cli",
+      "language": "text",
+      "code": "TODO"
+    },
+    {
+      "language": "curl",
+      "code": "curl -i -H Content-Type:application/json \\\\\\n  -H Authorization:$API_KEY \\\\\\n  -X POST https://api.evrythng.com/examplePath/:exampleId \\\\\\n  -d '{\\n  \\"name\\": \\"Some example object\\",\\n  \\"tags\\": [\\n    \\"example\\"\\n  ],\\n  \\"fruits\\": [\\n    \\"apples\\",\\n    \\"pairs\\"\\n  ],\\n  \\"location\\": {\\n    \\"type\\": \\"Point\\",\\n    \\"coordinates\\": [\\n      -0.9,\\n      -51.1\\n    ]\\n  }\\n}'"
+    },
+    {
+      "name": "evrythng.js",
+      "language": "javascript",
+      "code": "const payload = {\\n  name: 'Some example object',\\n  tags: [\\n    example'\\n  ],\\n  fruits: [\\n    apples',\\n    pairs'\\n  ],\\n  location: {\\n    type: 'Point',\\n    coordinates: [\\n      -0.9,\\n      -51.1\\n    ]\\n  }\\n};\\n\\noperator.TYPE().create(payload)\\n  .then(console.log);"
+    }
+  ]
+}
+[/block]
+[block:code]
+{
+  "codes": [
+    {
+      "language": "http",
+      "code": "HTTP/1.1 200 OK\\nContent-Type: application/json\\n\\n{\\n  \\"name\\": \\"Some example object\\",\\n  \\"createdAt\\": 1568109267732,\\n  \\"tags\\": [\\n    \\"example\\"\\n  ],\\n  \\"fruits\\": [\\n    \\"apples\\",\\n    \\"pairs\\"\\n  ],\\n  \\"location\\": {\\n    \\"type\\": \\"Point\\",\\n    \\"coordinates\\": [\\n      -0.9,\\n      -51.1\\n    ]\\n  }\\n}"
+    }
+  ]
+}
+[/block]`;
+
+      const result = printOperation.generateOperationText(SPEC, 'Create an example');
+      expect(result).to.equal(expected);
+    });
+  });
 });
-
-
