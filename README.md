@@ -18,12 +18,12 @@ $ npm i -g evrythng-openapi-tools
 - [Join](#join)
 - [Split](#split)
 - [Validate](#validate)
+- [Lint Schemas and Paths](#lint-schemas-and-paths)
 - [Print API Status](#print-api-status)
 - [Print Definition](#print-definition)
-- [Print Fields](#print-fields)
-- [Print Schema](#print-schema)
+  - [Print Fields](#print-fields)
+  - [Print Schema](#print-schema)
 - [Print Operation](#print-operation)
-- [Lint Schemas and Paths](#lint-schemas-and-paths)
 
 
 ### Join
@@ -61,11 +61,12 @@ operations using the tag will be listed as 'Stable' unless the path has
 `x-api-status` set to something else, such as 'Beta'. For example:
 
 ```
-/thngs/{thngId}
+/thngs/{thngId}:
   x-api-status: Beta
   get:
     tags:
       - Thngs
+    summary: Read a Thng
     ...
 ```
 
