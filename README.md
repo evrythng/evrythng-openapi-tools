@@ -116,7 +116,7 @@ language examples, by summary such as 'Read all Thngs'.
 Print a ReadMe.io-compatible table widget for use in the Filters documentation
 page as the list of 'Available Fields' for all resource types.
 
-`$ evrythng-openapi-tools print filter-table
+`$ evrythng-openapi-tools print filter-table`
 
 
 ### Lint Schemas and Paths
