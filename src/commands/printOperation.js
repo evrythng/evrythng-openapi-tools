@@ -15,9 +15,9 @@ const generatePreamble = ({ operation, method }) =>
  * Adapt OpenAPI path templating to ReadMe.io templating.
  *
  * @param {string} path - The path to transform, such as '/thngs/{thngId}'.
- * @returns {string} Transformed path, such as '/thng:thngId'.
+ * @returns {string} Transformed path, such as '/thngs/:thngId'.
  */
-const fixupPath = path => path.replace('{', ':').replace('}', '');
+const fixupPath = path => path.split('{').join(':').split('}').join('');
 
 /**
  * Get information used to look up a schema.
@@ -250,6 +250,7 @@ const generateResponse = data => generateReadMeDataBlock({
   codes: [{
     language: 'http',
     code: generateResponseSnippet(data),
+    name: 'Response',
   }],
 });
 
