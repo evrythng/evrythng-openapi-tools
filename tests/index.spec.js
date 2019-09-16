@@ -1,9 +1,9 @@
 const { expect } = require('chai');
 const refParser = require('json-schema-ref-parser');
-const printFields = require('../src/commands/printFields');
-const printSchema = require('../src/commands/printSchema');
-const printOperation = require('../src/commands/printOperation');
-const printApiStatus = require('../src/commands/printApiStatus');
+const printFields = require('../src/commands/print/fields');
+const printSchema = require('../src/commands/print/schema');
+const printOperation = require('../src/commands/print/operation');
+const printApiStatus = require('../src/commands/print/apiStatus');
 
 const SPEC = require('./testSpec.json');
 
@@ -132,7 +132,8 @@ Create a new example.
   "codes": [
     {
       "language": "http",
-      "code": "HTTP/1.1 200 OK\\nContent-Type: application/json\\n\\n{\\n  \\"name\\": \\"Some example object\\",\\n  \\"createdAt\\": 1568109267732,\\n  \\"tags\\": [\\n    \\"example\\"\\n  ],\\n  \\"fruits\\": [\\n    \\"apples\\",\\n    \\"pairs\\"\\n  ],\\n  \\"location\\": {\\n    \\"type\\": \\"Point\\",\\n    \\"coordinates\\": [\\n      -0.9,\\n      -51.1\\n    ]\\n  }\\n}"
+      "code": "HTTP/1.1 200 OK\\nContent-Type: application/json\\n\\n{\\n  \\"name\\": \\"Some example object\\",\\n  \\"createdAt\\": 1568109267732,\\n  \\"tags\\": [\\n    \\"example\\"\\n  ],\\n  \\"fruits\\": [\\n    \\"apples\\",\\n    \\"pairs\\"\\n  ],\\n  \\"location\\": {\\n    \\"type\\": \\"Point\\",\\n    \\"coordinates\\": [\\n      -0.9,\\n      -51.1\\n    ]\\n  }\\n}",
+      "name": "Response"
     }
   ]
 }
