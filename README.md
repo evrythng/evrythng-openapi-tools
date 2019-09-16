@@ -27,6 +27,7 @@ $ npm i -g evrythng-openapi-tools
 - [Print Fields](#print-fields)
 - [Print Schema](#print-schema)
 - [Print Operation](#print-operation)
+- [Print Filter Table](#print-filter-table)
 
 
 ### Join
@@ -73,7 +74,7 @@ operations using the tag will be listed as 'Stable' unless the path has
     ...
 ```
 
-`$ evrythng-openapi-tools print-api-status $inputFile $tag`
+`$ evrythng-openapi-tools print $inputFile api-status $tag`
 
 
 ### Print Definition
@@ -84,7 +85,7 @@ The `summaryName` should be a `summary` that uses the schema in `responses`.
 If the definition contains any `$ref` to other schemas, A 'See Also' section
 will also be generated as expected at the bottom of the widget.
 
-`$ evrythng-openapi-tools print-definition $inputFile $schemaName $summaryName`
+`$ evrythng-openapi-tools print $inputFile definition $schemaName $summaryName`
 
 
 ### Print Fields
@@ -92,14 +93,14 @@ will also be generated as expected at the bottom of the widget.
 Print the properties of a schema as a list of fields + attributes for
 documentation purposes.
 
-`$ evrythng-openapi-tools print-fields $inputFile $schemaName`
+`$ evrythng-openapi-tools print $inputFile fields $schemaName`
 
 
 ### Print Schema
 
 Print a reduced JSON Schema of a schema component for documentation purposes.
 
-`$ evrythng-openapi-tools print-schema $inputFile $schemaName`
+`$ evrythng-openapi-tools print $inputFile schema $schemaName`
 
 
 ### Print Operation
@@ -107,7 +108,15 @@ Print a reduced JSON Schema of a schema component for documentation purposes.
 Print a ReadMe.io-compatible Request/Response widget pair, featuring muliple
 language examples, by summary such as 'Read all Thngs'.
 
-`$ evrythng-openapi-tools print-operation $inputFile $summary`
+`$ evrythng-openapi-tools print $inputFile operation $summary`
+
+
+### Print Filter Table
+
+Print a ReadMe.io-compatible table widget for use in the Filters documentation
+page as the list of 'Available Fields' for all resource types.
+
+`$ evrythng-openapi-tools print filter-table
 
 
 ### Lint Schemas and Paths
