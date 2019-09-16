@@ -56,9 +56,8 @@ const printStats = () => {
  * Lint an input OpenAPI 3.0 YAML file according to pre-written schemas.
  *
  * @param {string} inputPath - Path of the input file to lint.
- * @param {string[]} rest - Rest of program args.
  */
-const execute = (inputPath, rest) => {
+const execute = (inputPath) => {
   if (!inputPath || !existsSync(inputPath)) {
     throw new Error('Specify a path to an OpenAPI 3.0 YAML file.');
   }

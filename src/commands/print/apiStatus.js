@@ -1,6 +1,6 @@
 const refParser = require('json-schema-ref-parser');
 const yamlJs = require('yamljs');
-const { buildOperationMap, generateReadMeDataBlock } = require('../util');
+const { buildOperationMap, generateReadMeDataBlock } = require('../../util');
 
 /**
  * Print the API status for all paths matching the tag.
@@ -39,8 +39,10 @@ const generateApiStatusText = (spec, tag) => {
 
 /**
  * Print the standard API Status page segment.
+ *
+ * @param {string} tag - Tag to use to print operation paths.
  */
-const execute = async (specPath, tag, rest) => {
+const execute = async (specPath, tag) => {
   const spec = yamlJs.load(specPath);
   if (!tag) {
     console.log('Please specify an operation tag, such as \'Thngs\'');

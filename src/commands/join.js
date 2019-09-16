@@ -58,9 +58,9 @@ const mergeRepoSpec = (repoPath) => {
  *
  * @param {string} baseDir - The base directory to build from, containing base.yaml etc.
  * @param {string} outputDir - Directory to store joined output files.
- * @param {string[]} rest - Rest of program args.
+ * @param {string[]} otherRepos - Rest of repos to join.
  */
-const execute = (baseDir, outputDir, rest) => {
+const execute = (baseDir, outputDir, otherRepos) => {
   if (!baseDir) {
     throw new Error('Specify a base directory where base.yaml resides.');
   }
@@ -72,8 +72,8 @@ const execute = (baseDir, outputDir, rest) => {
 
   mergeRepoSpec(baseDir);
 
-  if (rest) {
-    rest.forEach(mergeRepoSpec);
+  if (otherRepos) {
+    otherRepos.forEach(mergeRepoSpec);
   }
 
   const yamlStr = yamlJs.stringify(baseSpec, INLINE_AFTER, INDENT);

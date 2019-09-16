@@ -1,6 +1,6 @@
 const refParser = require('json-schema-ref-parser');
 const yamlJs = require('yamljs');
-const { buildOperationMap, generateReadMeDataBlock } = require('../util');
+const { buildOperationMap, generateReadMeDataBlock } = require('../../util');
 
 /**
  * Print the operation's summary as a preamble.
@@ -273,8 +273,10 @@ const generateOperationText = (spec, summary) => {
 
 /**
  * Print a ReadMe.io format request/response pair.
+ *
+ * @param {string} summary - Summary to use for operation search.
  */
-const execute = async (specPath, summary, rest) => {
+const execute = async (specPath, summary) => {
   const spec = yamlJs.load(specPath);
   if (!summary) {
     console.log('Please specify an operation summary, such as \'Read all Thngs\'.');

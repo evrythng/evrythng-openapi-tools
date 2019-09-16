@@ -1,31 +1,17 @@
-const join = require('./commands/join');
-const lint = require('./commands/lint');
-const printApiStatus = require('./commands/printApiStatus');
-const printDefinition = require('./commands/printDefinition');
-const printFields = require('./commands/printFields');
-const printOperation = require('./commands/printOperation');
-const printSchema = require('./commands/printSchema');
-const split = require('./commands/split');
-const validate = require('./commands/validate');
-
+/** Top level commands **/
 const COMMANDS = {
-  join,
-  split,
-  validate,
-  lint,
-  'print-api-status': printApiStatus,
-  'print-definition': printDefinition,
-  'print-fields': printFields,
-  'print-operation': printOperation,
-  'print-schema': printSchema,
+  join: require('./commands/join'),
+  lint: require('./commands/lint'),
+  print: require('./commands/print'),
+  split: require('./commands/split'),
+  validate: require('./commands/validate'),
 };
 
 /**
  * The main function.
  */
-const main = () => {
-  const [, , cmd, param1, param2, param3] = process.argv;
-  const rest = process.argv.splice(6);
+const main = async () => {
+  const [, , cmd, param1, param2, param3, param4] = process.argv;
 
   if (!COMMANDS[cmd]) {
     console.log(`Invalid command, choose from:\n  ${Object.keys(COMMANDS).join('\n  ')}`);
@@ -33,7 +19,7 @@ const main = () => {
   }
 
   try {
-    COMMANDS[cmd].execute(param1, param2, param3, rest);
+    await COMMANDS[cmd].execute(param1, param2, param3, param4);
   } catch (e) {
     console.log(e);
   }

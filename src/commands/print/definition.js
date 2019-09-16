@@ -1,8 +1,8 @@
 const refParser = require('json-schema-ref-parser');
 const yamlJs = require('yamljs');
-const { generateFieldsText } = require('./printFields');
-const { generateSchemaText } = require('./printSchema');
-const { generateReadMeDataBlock, buildOperationMap } = require('../util');
+const { generateFieldsText } = require('./fields');
+const { generateSchemaText } = require('./schema');
+const { generateReadMeDataBlock, buildOperationMap } = require('../../util');
 
 /** Definitions that don't go in See Also **/
 const SEE_ALSO_EXCEPTIONS = ['CustomFieldsDocument', 'IdentifiersDocument', 'TagsDocument'];
@@ -61,9 +61,8 @@ const getSeeAlsoList = (spec, schemaName) => Object
  * @param {string} specPath - The path to the OpenAPI spec file.
  * @param {string} schemaName - Name of the schema to describe.
  * @param {string} exampleSummary - Summary for operation that has an example.
- * @param {string[]} rest - Rest of program args.
  */
-const execute = async (specPath, schemaName, exampleSummary, rest) => {
+const execute = async (specPath, schemaName, exampleSummary) => {
   const spec = yamlJs.load(specPath);
   const derefSpec = await refParser.dereference(JSON.parse(JSON.stringify(spec)));
   if (!schemaName) {

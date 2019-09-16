@@ -6,9 +6,8 @@ const yamlJs = require('yamljs');
  * Validate an input OpenAPI 3.0 YAML file.
  *
  * @param {string} inputPath - Path of the input file to validate.
- * @param {string[]} rest - Rest of program args.
  */
-const execute = (inputPath, rest) => {
+const execute = (inputPath) => {
   if (!inputPath || !existsSync(inputPath)) {
     throw new Error('Specify a path to an OpenAPI 3.0 YAML file.');
   }

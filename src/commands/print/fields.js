@@ -161,10 +161,9 @@ const generateFieldsText = (spec, derefSpec, schemaName) => {
  * Each property lists its JSONSchema attributes in parentheses.
  *
  * @param {string} specPath - The path to the OpenAPI spec file.
- * @param {string} schemaName - Name of the schema to describe.
- * @param {string[]} rest - Rest of program args.
+ * @param {string} schemaName - Name of schema to print.
  */
-const execute = async (specPath, schemaName, rest) => {
+const execute = async (specPath, schemaName) => {
   const spec = yamlJs.load(specPath);
   const derefSpec = await refParser.dereference(JSON.parse(JSON.stringify(spec)));
   if (!schemaName) {

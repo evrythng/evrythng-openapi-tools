@@ -8,9 +8,8 @@ const yamlJs = require('yamljs');
  *
  * @param {string} inputFile - Path of the input file to split.
  * @param {string} outputDir - Path of the output directory to save files produced.
- * @param {string[]} rest - Rest of program args.
  */
-const execute = (inputFile, outputDir, rest) => {
+const execute = (inputFile, outputDir) => {
   if (!inputFile) {
     throw new Error('Specify name of the file to split.');
   }

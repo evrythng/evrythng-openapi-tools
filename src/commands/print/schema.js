@@ -1,6 +1,6 @@
 const refParser = require('json-schema-ref-parser');
 const yamlJs = require('yamljs');
-const { expand } = require('../util');
+const { expand } = require('../../util');
 
 /**
  * Fold up the schema's single line objects and multi-line arrays.
@@ -73,9 +73,8 @@ const generateSchemaText = (derefSpec, schemaName) => {
  *
  * @param {string} specPath - The path to the OpenAPI spec file.
  * @param {string} schemaName - Name of the schema to describe.
- * @param {string[]} rest - Rest of program args.
  */
-const execute = async (specPath, schemaName, rest) => {
+const execute = async (specPath, schemaName) => {
   const spec = yamlJs.load(specPath);
   const derefSpec = await refParser.dereference(JSON.parse(JSON.stringify(spec)));
   if (!schemaName) {
