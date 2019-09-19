@@ -12,7 +12,7 @@ const generateApiStatusText = (spec, tag) => {
   let output = '**API Status**\n';
   const map = buildOperationMap(spec);
   const pathData = map.filter(p => p.operation.tags[0] === tag)
-    .map(p => ({ path: p.path, status: p.pathObj['x-api-status'] || 'Stable' }));
+    .map(p => ({ path: p.path, status: p.pathObj['x-api-status'] || 'General Availability' }));
   if (!pathData.length) {
     throw new Error('Tag not associated with any paths');
   }

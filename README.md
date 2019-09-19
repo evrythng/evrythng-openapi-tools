@@ -61,8 +61,8 @@ Validate an existing or joined OpenAPI spec file.
 ### Print API Status
 
 Print the 'API Status' section for a given `tag`, such as `Thngs`. Paths with
-operations using the tag will be listed as 'Stable' unless the path has
-`x-api-status` set to something else, such as 'Beta'. For example:
+operations using the tag will be listed as 'General Availability' unless the
+path has `x-api-status` set to something else, such as 'Beta'. For example:
 
 ```
 /thngs/{thngId}:
