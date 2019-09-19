@@ -86,7 +86,7 @@ describe('evrythng-openapi-tools', () => {
       const expected = `**API Status**
 Beta:
 \`/examplePath\`
-Stable:
+General Availability:
 \`/examplePath/{exampleId}\`
 ___`;
 
@@ -111,13 +111,8 @@ Create a new example.
       "code": "POST /examplePath/:exampleId\\nContent-Type: application/json\\nAuthorization: $API_KEY\\n\\nExampleDocument"
     },
     {
-      "name": "evrythng-cli",
-      "language": "text",
-      "code": "TODO"
-    },
-    {
       "language": "curl",
-      "code": "curl -i -H Content-Type:application/json \\\\\\n  -H Authorization:$API_KEY \\\\\\n  -X POST https://api.evrythng.com/examplePath/:exampleId \\\\\\n  -d '{\\n  \\"name\\": \\"Some example object\\",\\n  \\"tags\\": [\\n    \\"example\\"\\n  ],\\n  \\"fruits\\": [\\n    \\"apples\\",\\n    \\"pairs\\"\\n  ],\\n  \\"location\\": {\\n    \\"type\\": \\"Point\\",\\n    \\"coordinates\\": [\\n      -0.9,\\n      -51.1\\n    ]\\n  }\\n}'"
+      "code": "curl -i -H Content-Type:application/json \\\\\\n  -H Authorization:$API_KEY \\\\\\n  -X POST https://api.evrythng.com/examplePath/:exampleId\\\\\\n  -d '{\\n  \\"name\\": \\"Some example object\\",\\n  \\"tags\\": [\\n    \\"example\\"\\n  ],\\n  \\"fruits\\": [\\n    \\"apples\\",\\n    \\"pairs\\"\\n  ],\\n  \\"location\\": {\\n    \\"type\\": \\"Point\\",\\n    \\"coordinates\\": [\\n      -0.9,\\n      -51.1\\n    ]\\n  }\\n}'"
     },
     {
       "name": "evrythng.js",

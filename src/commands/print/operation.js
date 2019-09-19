@@ -91,7 +91,7 @@ const generateCurlSnippet = (data) => {
   }
 
   result += ' \\\n  -H Authorization:$API_KEY \\\n';
-  result += `  -X ${method.toUpperCase()} https://api.evrythng.com${fixupPath(path)} \\\n`;
+  result += `  -X ${method.toUpperCase()} https://api.evrythng.com${fixupPath(path)}`;
 
   const { requestBody } = operation;
   if (operation.requestBody) {
@@ -102,7 +102,7 @@ const generateCurlSnippet = (data) => {
       throw new Error('requestBody has no example!');
     }
 
-    result += `  -d '${JSON.stringify(example, null, 2)}'`;
+    result += `\\\n  -d '${JSON.stringify(example, null, 2)}'`;
   }
 
   return result;
