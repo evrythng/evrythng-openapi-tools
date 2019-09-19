@@ -50,6 +50,37 @@ const getSchemaLookupInfo = (parent) => {
 };
 
 /**
+ * Take an opinionated guess as to which API key can be used, based on x-api-keys
+ *
+ * @param {object} operation - The operation object.
+ * @returns {string} API key placeholder name.
+ */
+const getApiKeyType = (operation) => {
+  const keys = operation['x-api-keys'];
+  if (!keys) {
+    return 'OPERATOR_API_KEY';
+  }
+
+  if (keys.includes('Operator')) {
+    return 'OPERATOR_API_KEY';
+  }
+  if (keys.includes('Trusted Application')) {
+    return 'TRUSTED_APPLICATION_API_KEY';
+  }
+  if (keys.includes('Application')) {
+    return 'APPLICATION_API_KEY';
+  }
+  if (keys.includes('Application User')) {
+    return 'APPLICATION_USER_API_KEY';
+  }
+  if (keys.includes('Device')) {
+    return 'DEVICE_API_KEY';
+  }
+
+  return 'OPERATOR_API_KEY';
+};
+
+/**
  * Generate an HTTP example snippet.
  *
  * @param {object} data - Data about the operation.
@@ -62,7 +93,7 @@ const generateHttpSnippet = (data) => {
     result += 'Content-Type: application/json\n';
   }
 
-  result += `Authorization: $API_KEY`;
+  result += `Authorization: $${getApiKeyType(operation)}`;
 
   const { requestBody } = operation;
   if (requestBody) {
@@ -90,7 +121,7 @@ const generateCurlSnippet = (data) => {
     result += ' -H Content-Type:application/json';
   }
 
-  result += ' \\\n  -H Authorization:$API_KEY \\\n';
+  result += ` \\\n  -H Authorization:$${getApiKeyType(operation)} \\\n`;
   result += `  -X ${method.toUpperCase()} https://api.evrythng.com${fixupPath(path)}`;
 
   const { requestBody } = operation;
