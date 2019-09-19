@@ -227,10 +227,6 @@ const generateRequest = data => generateReadMeDataBlock({
     language: 'http',
     code: generateHttpSnippet(data),
   }, {
-    name: 'evrythng-cli',
-    language: 'text',
-    code: 'TODO',
-  }, {
     language: 'curl',
     code: generateCurlSnippet(data),
   }, {
