@@ -48,7 +48,7 @@ const getSeeAlsoList = (spec, schemaName) => Object
       return acc.concat(propDef.$ref.split('/')[3]);
     }
 
-    if (propDef.type === 'array' && propDef.items.$ref) {
+    if (propDef.type === 'array' && propDef.items.$ref && propDef.items.$ref.includes('Document')) {
       return acc.concat(propDef.items.$ref.split('/')[3]);
     }
 
@@ -92,7 +92,8 @@ const execute = async (specPath, schemaName, exampleSummary) => {
   });
 
   // See also list
-  const seeAlsoMap = getSeeAlsoList(spec, schemaName).filter(p => !SEE_ALSO_EXCEPTIONS.includes(p));
+  const seeAlsoMap = getSeeAlsoList(spec, schemaName)
+    .filter(p => !SEE_ALSO_EXCEPTIONS.includes(p));
   if (seeAlsoMap.length) {
     output += '\nSee also: ';
     const linkTags = seeAlsoMap
