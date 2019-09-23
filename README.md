@@ -23,10 +23,11 @@ $ npm i -g evrythng-openapi-tools
 - [Validate](#validate)
 - [Lint Schemas and Paths](#lint-schemas-and-paths)
 - [Print API Status](#print-api-status)
-- [Print Definition](#print-definition)
-- [Print Fields](#print-fields)
-- [Print Schema](#print-schema)
-- [Print Operation](#print-operation)
+  - [Print Definition](#print-definition)
+  - [Print Fields](#print-fields)
+  - [Print Schema](#print-schema)
+- [Print Operations](#print-operations)
+  - [Print Operation](#print-operation)
 - [Print Filter Table](#print-filter-table)
 
 
@@ -101,6 +102,15 @@ documentation purposes.
 Print a reduced JSON Schema of a schema component for documentation purposes.
 
 `$ evrythng-openapi-tools print $inputFile schema $schemaName`
+
+
+### Print Operations
+
+Print Request/Response widget pairs for a given `tag` all at the same time. You
+will be asked to order the applicable summaries before the final output is
+printed.
+
+`$ evrythng-openapi-tools print $inputFile operations $tag`
 
 
 ### Print Operation
