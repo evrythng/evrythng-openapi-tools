@@ -4,6 +4,7 @@ const TYPE_MAP = {
   definition: require('./print/definition'),
   fields: require('./print/fields'),
   operation: require('./print/operation'),
+  operations: require('./print/operations'),
   schema: require('./print/schema'),
 };
 

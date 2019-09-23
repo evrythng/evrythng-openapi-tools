@@ -1,4 +1,3 @@
-const refParser = require('json-schema-ref-parser');
 const yamlJs = require('yamljs');
 const { buildOperationMap, generateReadMeDataBlock } = require('../../util');
 

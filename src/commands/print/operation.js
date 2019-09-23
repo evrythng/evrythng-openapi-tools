@@ -1,4 +1,3 @@
-const refParser = require('json-schema-ref-parser');
 const yamlJs = require('yamljs');
 const { buildOperationMap, generateReadMeDataBlock } = require('../../util');
 
@@ -311,7 +310,7 @@ const execute = async (specPath, summary) => {
   }
 
   console.log(generateOperationText(spec, summary));
-  console.log('\n\n>>> Please be aware this output still needs some editing (API keys, \'See also\', etc)\n');
+  console.log('\n\n>>> Please be aware this output still needs some editing (API keys, \'See also\', Example, etc)\n');
 };
 
 module.exports = {

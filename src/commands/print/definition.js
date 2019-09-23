@@ -87,7 +87,7 @@ const execute = async (specPath, schemaName, exampleSummary) => {
     }, {
       name: 'Example',
       language: 'json',
-      code: generateExampleText(spec, exampleSummary),
+      code: exampleSummary ? generateExampleText(spec, exampleSummary) : 'TODO',
     }],
   });
 

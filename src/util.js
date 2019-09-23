@@ -1,4 +1,5 @@
 const { validate } = require('jsonschema');
+const readline = require('readline');
 
 /** Fields filtered from view **/
 const FILTERED_FIELDS = [];
@@ -99,9 +100,43 @@ const buildOperationMap = (spec) => {
   return result;
 };
 
+/**
+ * Get a value fromm the user by asking a question.
+ *
+ * @param {string} label - Question for response.
+ * @returns {Promise<string>} User's answer to the question.
+ */
+const getValue = label => new Promise((resolve) => {
+  const rl = readline.createInterface(process.stdin, process.stdout);
+  rl.question(`${label}: `, (result) => {
+    rl.close();
+    resolve(result);
+  });
+});
+
+/**
+ * Sort summaries by their HTTP method-based descriptions.
+ *
+ * @param {string} a - Summary A.
+ * @param {string} b - Summary B.
+ * @returns {number} -1 if to be sorted A first, 1 otherwise.
+ */
+const sortByMethod = (a, b) => {
+  const positions = {
+    Create: 0,
+    Read: 1,
+    Update: 2,
+    Delete: 3,
+  };
+  const [methodA] = a.split(' ');
+  const [methodB] = b.split(' ');
+  return positions[methodA] < positions[methodB] ? -1 : 1;
+};
+
 module.exports = {
   expand,
   generateReadMeDataBlock,
   lintWithSchema,
   buildOperationMap,
+  getValue,
 };
