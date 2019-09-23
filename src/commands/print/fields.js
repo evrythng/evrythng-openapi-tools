@@ -47,6 +47,11 @@ const buildAttributeString = (schema, defName, key, derefProp) => {
       // ... of basic named types, or basic data types
       result += (derefProp.items.type === 'object' && defName) ? defName : derefProp.items.type;
     }
+
+    // Display any max length
+    if (derefProp.maxItems) {
+      result += `, max. ${derefProp.maxItems}`;
+    }
   }
 
   // and it's read only
