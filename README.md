@@ -23,7 +23,7 @@ $ npm i -g evrythng-openapi-tools
 - [Validate](#validate)
 - [Lint Schemas and Paths](#lint-schemas-and-paths)
 - [Print API Status](#print-api-status)
-  - [Print Definition](#print-definition)
+- [Print Definition](#print-definition)
   - [Print Fields](#print-fields)
   - [Print Schema](#print-schema)
 - [Print Operations](#print-operations)
