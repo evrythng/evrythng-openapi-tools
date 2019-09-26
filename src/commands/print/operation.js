@@ -149,9 +149,15 @@ const generateCurlSnippet = (data) => {
  * @returns {string} JS object string.
  */
 const formatJsonForJs = jsonStr => jsonStr
-  .split('": ').join(': ')
-  .split('  "').join('  ')
-  .split('"').join('\'') + ';\n\n';
+  .split('\n')
+  .map((line) => {
+    line = line.split('": ').join(': ');
+    if (line.includes(':')) {
+      line = line.split('  "').join('  ');
+    }
+
+    return line.split('"').join('\'');
+  }).join('\n') + ';\n\n';
 
 /**
  * Generate an evrythng.js example snippet (or starting point).
