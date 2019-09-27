@@ -2,6 +2,7 @@ const TYPE_MAP = {
   'api-status': require('./print/apiStatus'),
   'filter-table': require('./print/filterTable'),
   definition: require('./print/definition'),
+  definitions: require('./print/definitions'),
   fields: require('./print/fields'),
   operation: require('./print/operation'),
   operations: require('./print/operations'),

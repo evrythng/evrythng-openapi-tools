@@ -55,15 +55,7 @@ const getSeeAlsoList = (spec, schemaName) => Object
     return acc;
   }, []);
 
-/**
- * Print fields, schema, and example in one widget.
- *
- * @param {string} specPath - The path to the OpenAPI spec file.
- * @param {string} schemaName - Name of the schema to describe.
- * @param {string} exampleSummary - Summary for operation that has an example.
- */
-const execute = async (specPath, schemaName, exampleSummary) => {
-  const spec = yamlJs.load(specPath);
+const generateDefinitionText = async (spec, schemaName, exampleSummary) => {
   const derefSpec = await refParser.dereference(JSON.parse(JSON.stringify(spec)));
   if (!schemaName) {
     console.log(`Available schema objects:\n- ${Object.keys(spec.components.schemas).join('\n- ')}`);
@@ -101,8 +93,25 @@ const execute = async (specPath, schemaName, exampleSummary) => {
     output += linkTags.join(', ');
   }
 
+  return output;
+};
+
+/**
+ * Print fields, schema, and example in one widget.
+ *
+ * @param {string} specPath - The path to the OpenAPI spec file.
+ * @param {string} schemaName - Name of the schema to describe.
+ * @param {string} exampleSummary - Summary for operation that has an example.
+ */
+const execute = async (specPath, schemaName, exampleSummary) => {
+  const spec = yamlJs.load(specPath);
+
+  const output = await generateDefinitionText(spec, schemaName, exampleSummary);
   console.log(`${output}\n___\n`);
   console.log('\n\n>>> Please be aware this output still needs some editing (\'See also\', etc)\n');
 };
 
-module.exports = { execute };
+module.exports = {
+  execute,
+  generateDefinitionText,
+};

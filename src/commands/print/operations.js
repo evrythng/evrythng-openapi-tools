@@ -3,10 +3,10 @@ const { buildOperationMap, getValue } = require('../../util');
 const { generateOperationText } = require('./operation');
 
 /**
- * Print the operation snippets for all operations.
+ * Print the selected operation snippets for a tag.
  *
  * @param {object} spec - The API spec.
- * @param {string} summary - The operation summary to find.
+ * @param {string} tag - The tag to find.
  * @returns {string} The operation snippet in full.
  */
 const generateOperationsText = async (spec, tag) => {
@@ -14,6 +14,11 @@ const generateOperationsText = async (spec, tag) => {
   const map = buildOperationMap(spec);
   const summaries = map.filter(p => p.operation.tags[0] === tag)
     .map(p => p.operation.summary);
+  if (!summaries.length) {
+    throw new Error(`No operations found for tag '${tag}'`);
+  }
+
+  // Ask user for ordering
   summaries.forEach((item, i) => console.log(`${i}: ${item}`));
   const order = await getValue('Enter desired ordering as comma separated list');
   const ordering = order.split(',');

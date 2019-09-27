@@ -23,11 +23,8 @@ $ npm i -g evrythng-openapi-tools
 - [Validate](#validate)
 - [Lint Schemas and Paths](#lint-schemas-and-paths)
 - [Print API Status](#print-api-status)
-- [Print Definition](#print-definition)
-  - [Print Fields](#print-fields)
-  - [Print Schema](#print-schema)
+- [Print Definitions](#print-definitions)
 - [Print Operations](#print-operations)
-  - [Print Operation](#print-operation)
 - [Print Filter Table](#print-filter-table)
 
 
@@ -76,6 +73,15 @@ path has `x-api-status` set to something else, such as 'Beta'. For example:
 ```
 
 `$ evrythng-openapi-tools print $inputFile api-status $tag`
+
+
+### Print Definitions
+
+Run `definition`, but for all definitions associated to a `tag`, such as
+"Thngs". You will be asked to order the applicable definitions before the final
+output is printed.
+
+`$ evrythng-openapi-tools print $inputFile definitions $tag`
 
 
 ### Print Definition
