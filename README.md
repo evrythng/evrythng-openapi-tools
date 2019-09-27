@@ -6,6 +6,10 @@ files using a standardised directory and file naming convention.
 Also includes several commands to generate familiar ReadMe.io-compatible
 documentation snippets to help preserve structure and style.
 
+- [Installation](#installation)
+- [Work with specs](#work-with-specs)
+- [Generate documentation](#generate-documentation)
+
 
 ## Installation
 
@@ -16,16 +20,12 @@ $ npm i -g evrythng-openapi-tools
 ```
 
 
-## Usage
+## Work with specs
 
 - [Join](#join)
 - [Split](#split)
 - [Validate](#validate)
 - [Lint Schemas and Paths](#lint-schemas-and-paths)
-- [Print API Status](#print-api-status)
-- [Print Definitions](#print-definitions)
-- [Print Operations](#print-operations)
-- [Print Filter Table](#print-filter-table)
 
 
 ### Join
@@ -54,6 +54,22 @@ output directory.
 Validate an existing or joined OpenAPI spec file.
 
 `$ evrythng-openapi-tools validate $inputFile`
+
+
+### Lint Schemas and Paths
+
+Lint all in `schemas` and `paths` for common things like `example`, and
+`description` to help ensure format consistency.
+
+`$ evrythng-openapi-tools lint $inputFile`
+
+
+## Generate Documentation
+
+- [Print API Status](#print-api-status)
+- [Print Definitions](#print-definitions)
+- [Print Operations](#print-operations)
+- [Print Filter Table](#print-filter-table)
 
 
 ### Print API Status
@@ -86,6 +102,8 @@ output is printed.
 
 ### Print Definition
 
+> Subcommand of `definitions`.
+
 Print a trio of 'Fields', 'Schema', and 'Example' for documentation purposes.
 The `summaryName` should be a `summary` that uses the schema in `responses`.
 
@@ -97,6 +115,8 @@ will also be generated as expected at the bottom of the widget.
 
 ### Print Fields
 
+> Subcommand of `definition`.
+
 Print the properties of a schema as a list of fields + attributes for
 documentation purposes.
 
@@ -104,6 +124,8 @@ documentation purposes.
 
 
 ### Print Schema
+
+> Subcommand of `definition`.
 
 Print a reduced JSON Schema of a schema component for documentation purposes.
 
@@ -121,6 +143,8 @@ printed.
 
 ### Print Operation
 
+> Subcommand of `operations`.
+
 Print a ReadMe.io-compatible Request/Response widget pair, featuring muliple
 language examples, by summary such as 'Read all Thngs'.
 
@@ -133,14 +157,6 @@ Print a ReadMe.io-compatible table widget for use in the Filters documentation
 page as the list of 'Available Fields' for all resource types.
 
 `$ evrythng-openapi-tools print filter-table`
-
-
-### Lint Schemas and Paths
-
-Lint all in `schemas` and `paths` for common things like `example`, and
-`description` to help ensure format consistency.
-
-`$ evrythng-openapi-tools lint $inputFile`
 
 
 ## Directory Structure
