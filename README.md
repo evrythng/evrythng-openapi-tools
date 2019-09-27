@@ -102,7 +102,7 @@ output is printed.
 
 ### Print Definition
 
-> Subcommand of `definitions`.
+> Included in `definitions`.
 
 Print a trio of 'Fields', 'Schema', and 'Example' for documentation purposes.
 The `summaryName` should be a `summary` that uses the schema in `responses`.
@@ -115,7 +115,7 @@ will also be generated as expected at the bottom of the widget.
 
 ### Print Fields
 
-> Subcommand of `definition`.
+> Included in `definition`.
 
 Print the properties of a schema as a list of fields + attributes for
 documentation purposes.
@@ -125,7 +125,7 @@ documentation purposes.
 
 ### Print Schema
 
-> Subcommand of `definition`.
+> Included in `definition`.
 
 Print a reduced JSON Schema of a schema component for documentation purposes.
 
@@ -143,7 +143,7 @@ printed.
 
 ### Print Operation
 
-> Subcommand of `operations`.
+> Included in `operations`.
 
 Print a ReadMe.io-compatible Request/Response widget pair, featuring muliple
 language examples, by summary such as 'Read all Thngs'.
