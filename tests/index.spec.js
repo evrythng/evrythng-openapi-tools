@@ -117,7 +117,7 @@ Create a new example.
     {
       "name": "evrythng.js",
       "language": "javascript",
-      "code": "const payload = {\\n  name: 'Some example object',\\n  tags: [\\n    example'\\n  ],\\n  fruits: [\\n    apples',\\n    pairs'\\n  ],\\n  location: {\\n    type: 'Point',\\n    coordinates: [\\n      -0.9,\\n      -51.1\\n    ]\\n  }\\n};\\n\\noperator.TYPE().create(payload)\\n  .then(console.log);"
+      "code": "const payload = {\\n  name: 'Some example object',\\n  tags: [\\n    'example'\\n  ],\\n  fruits: [\\n    'apples',\\n    'pairs'\\n  ],\\n  location: {\\n    type: 'Point',\\n    coordinates: [\\n      -0.9,\\n      -51.1\\n    ]\\n  }\\n};\\n\\noperator.TYPE().create(payload)\\n  .then(console.log);"
     }
   ]
 }
