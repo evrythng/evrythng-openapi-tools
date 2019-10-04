@@ -105,7 +105,8 @@ output is printed.
 > Included in `definitions`.
 
 Print a trio of 'Fields', 'Schema', and 'Example' for documentation purposes.
-The `summaryName` should be a `summary` that uses the schema in `responses`.
+The `summaryName` should be a `summary` from an operation that uses the schema
+in its `responses`.
 
 If the definition contains any `$ref` to other schemas, A 'See Also' section
 will also be generated as expected at the bottom of the widget.
