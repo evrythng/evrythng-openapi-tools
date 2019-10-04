@@ -46,14 +46,14 @@ Split a single OpenAPI spec file into components that meet the standardised
 directory and file naming convention by providing the full spec and desired
 output directory.
 
-`$ evrythng-openapi-tools split $inputFile $outputDir`
+`$ evrythng-openapi-tools split $specFile $outputDir`
 
 
 ### Validate
 
 Validate an existing or joined OpenAPI spec file.
 
-`$ evrythng-openapi-tools validate $inputFile`
+`$ evrythng-openapi-tools validate $specFile`
 
 
 ### Lint Schemas and Paths
@@ -61,7 +61,7 @@ Validate an existing or joined OpenAPI spec file.
 Lint all in `schemas` and `paths` for common things like `example`, and
 `description` to help ensure format consistency.
 
-`$ evrythng-openapi-tools lint $inputFile`
+`$ evrythng-openapi-tools lint $specFile`
 
 
 ## Generate Documentation
@@ -88,7 +88,7 @@ path has `x-api-status` set to something else, such as 'Beta'. For example:
     ...
 ```
 
-`$ evrythng-openapi-tools print $inputFile api-status $tag`
+`$ evrythng-openapi-tools print $specFile api-status $tag`
 
 
 ### Print Definitions
@@ -97,7 +97,7 @@ Run `definition`, but for all definitions associated to a `tag`, such as
 "Thngs". You will be asked to order the applicable definitions before the final
 output is printed.
 
-`$ evrythng-openapi-tools print $inputFile definitions $tag`
+`$ evrythng-openapi-tools print $specFile definitions $tag`
 
 
 ### Print Definition
@@ -111,7 +111,7 @@ in its `responses`.
 If the definition contains any `$ref` to other schemas, A 'See Also' section
 will also be generated as expected at the bottom of the widget.
 
-`$ evrythng-openapi-tools print $inputFile definition $schemaName $summaryName`
+`$ evrythng-openapi-tools print $specFile definition $schemaName $summaryName`
 
 
 ### Print Fields
@@ -121,7 +121,7 @@ will also be generated as expected at the bottom of the widget.
 Print the properties of a schema as a list of fields + attributes for
 documentation purposes.
 
-`$ evrythng-openapi-tools print $inputFile fields $schemaName`
+`$ evrythng-openapi-tools print $specFile fields $schemaName`
 
 
 ### Print Schema
@@ -130,7 +130,7 @@ documentation purposes.
 
 Print a reduced JSON Schema of a schema component for documentation purposes.
 
-`$ evrythng-openapi-tools print $inputFile schema $schemaName`
+`$ evrythng-openapi-tools print $specFile schema $schemaName`
 
 
 ### Print Operations
@@ -139,7 +139,7 @@ Print Request/Response widget pairs for a given `tag` all at the same time. You
 will be asked to order the applicable summaries before the final output is
 printed.
 
-`$ evrythng-openapi-tools print $inputFile operations $tag`
+`$ evrythng-openapi-tools print $specFile operations $tag`
 
 
 ### Print Operation
@@ -149,7 +149,7 @@ printed.
 Print a ReadMe.io-compatible Request/Response widget pair, featuring muliple
 language examples, by summary such as 'Read all Thngs'.
 
-`$ evrythng-openapi-tools print $inputFile operation $summary`
+`$ evrythng-openapi-tools print $specFile operation $summary`
 
 
 ### Print Filter Table
