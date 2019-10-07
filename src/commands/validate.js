@@ -18,7 +18,7 @@ const execute = (inputPath) => {
 
   console.log(`API specification is ${result.errors.length ? 'NOT ' : ''}valid!`);
   if (result.errors.length) {
-    result.errors.forEach(item => console.log(`- ${item.schemaPath}: ${item.message}`));
+    result.errors.forEach(item => console.log(`- ${item.dataPath}: ${item.message}`));
     process.exitCode = 1;
   }
 };
