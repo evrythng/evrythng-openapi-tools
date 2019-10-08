@@ -1,6 +1,25 @@
 const yamlJs = require('yamljs');
-const { buildOperationMap, getValue } = require('../../util');
+const { buildOperationMap, askForOrderedList } = require('../../util');
 const { generateOperationText } = require('./operation');
+
+/**
+ * Find operation summaries for a given tag.
+ *
+ * @param {Object} spec - API spec.
+ * @param {string} tag - Tag to search for.
+ * @returns {string[]} List of summaries related to the tag.
+ */
+const findSummariesForTag = (spec, tag) => {
+  const map = buildOperationMap(spec);
+  const summaries = map.filter(p => p.operation.tags[0] === tag)
+    .map(p => p.operation.summary)
+    .sort();
+  if (!summaries.length) {
+    throw new Error(`No operations found for tag '${tag}'`);
+  }
+
+  return summaries;
+};
 
 /**
  * Print the selected operation snippets for a tag.
@@ -11,26 +30,12 @@ const { generateOperationText } = require('./operation');
  */
 const generateOperationsText = async (spec, tag) => {
   // Find all relevant operations
-  const map = buildOperationMap(spec);
-  const summaries = map.filter(p => p.operation.tags[0] === tag)
-    .map(p => p.operation.summary)
-    .sort();
-  if (!summaries.length) {
-    throw new Error(`No operations found for tag '${tag}'`);
-  }
+  const summaries = findSummariesForTag(spec, tag);
 
   // Ask user for ordering
-  console.log('\nFound the following operations:');
-  summaries.forEach((item, i) => console.log(`${i}: ${item}`));
-  const order = await getValue('Enter desired ordering as comma separated list');
-  const ordering = order.split(',');
-  if (!ordering.every(index => summaries[index])) {
-    throw new Error('Invalid ordering');
-  }
-
-  const list = [];
-  ordering.forEach(index => list.push(summaries[index]));
-  return list.map(p => generateOperationText(spec, p)).join('\n');
+  const prompt = '\nGenerating operations:\n  Found the following operations';
+  const ordered = await askForOrderedList(summaries, prompt);
+  return ordered.map(p => generateOperationText(spec, p)).join('\n');
 };
 
 /**
@@ -52,4 +57,5 @@ const execute = async (specPath, tag) => {
 module.exports = {
   execute,
   generateOperationsText,
+  findSummariesForTag,
 };

@@ -1,16 +1,15 @@
 const yamlJs = require('yamljs');
-const { buildOperationMap, getValue } = require('../../util');
+const { buildOperationMap, askForOrderedList } = require('../../util');
 const { generateDefinitionText } = require('./definition');
 
 /**
- * Print the selected definition snippets for a tag.
+ * Find all schemas relating to a given tag.
  *
- * @param {object} spec - The API spec.
- * @param {string} tag - The tag to find.
- * @returns {string} The operation snippet in full.
+ * @param {Object} spec - API spec.
+ * @param {string} tag - Tag to search for.
+ * @returns {string[]} List of schema names related to the tag.
  */
-const generateDefinitionsText = async (spec, tag) => {
-  // Find all relevant operations
+const findSchemasForTag = (spec, tag) => {
   const map = buildOperationMap(spec);
   const names = [];
   map.filter(p => p.operation.tags[0] === tag)
@@ -49,22 +48,27 @@ const generateDefinitionsText = async (spec, tag) => {
 
   // De-dupe final list of document schemas only
   schemaNames = [...new Set(schemaNames)];
-  schemaNames = schemaNames.filter(p => p.includes('Document')).sort();
+  return schemaNames.filter(p => p.includes('Document')).sort();
+};
+
+/**
+ * Print the selected definition snippets for a tag.
+ *
+ * @param {object} spec - The API spec.
+ * @param {string} tag - The tag to find.
+ * @returns {string} The operation snippet in full.
+ */
+const generateDefinitionsText = async (spec, tag) => {
+  // Find all relevant operations
+  const schemaNames = findSchemasForTag(spec, tag);
 
   // Ask user for ordering
-  console.log('\nFound the following related definitions (some may not be relevant for this page):');
-  schemaNames.forEach((item, i) => console.log(`${i}: ${item}`));
-  const order = await getValue('Choose which and order as comma separated list');
-  const ordering = order.split(',');
-  if (!ordering.every(index => schemaNames[index])) {
-    throw new Error('Invalid ordering');
-  }
+  const prompt = '\nGenerating definitions:\n  Found the following related definitions (some may not be relevant for this page)';
+  const ordered = await askForOrderedList(schemaNames, prompt);
 
-  const list = [];
   let output = '';
-  ordering.forEach(index => list.push(schemaNames[index]));
-  for (let i = 0; i < ordering.length; i++) {
-    output += await await generateDefinitionText(spec, list[i]);
+  for (let i = 0; i < ordered.length; i++) {
+    output += await generateDefinitionText(spec, ordered[i]);
     output += '\n';
   }
   return output;
@@ -89,4 +93,5 @@ const execute = async (specPath, tag) => {
 module.exports = {
   execute,
   generateDefinitionsText,
+  findSchemasForTag,
 };

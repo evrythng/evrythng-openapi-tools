@@ -133,10 +133,32 @@ const sortByMethod = (a, b) => {
   return positions[methodA] < positions[methodB] ? -1 : 1;
 };
 
+/**
+ * Ask the user to select and order a list of options. Then return the ordered list.
+ *
+ * @param {string[]} items - Items to ask for sorting.
+ * @param {string} prompt - Ordering purpose prompt.
+ * @returns {string[]} Sorted list.
+ */
+const askForOrderedList = async (items, prompt) => {
+  console.log(`${prompt}:`);
+  items.forEach((item, i) => console.log(`  ${i}: ${item}`));
+  const order = await getValue('Choose which and order as comma separated list');
+  const ordering = order.split(',');
+  if (!ordering.every(index => items[index])) {
+    throw new Error('Invalid ordering');
+  }
+
+  let ordered = [];
+  ordering.forEach(index => ordered.push(items[index]));
+  return ordered;
+};
+
 module.exports = {
   expand,
   generateReadMeDataBlock,
   lintWithSchema,
   buildOperationMap,
   getValue,
+  askForOrderedList,
 };
