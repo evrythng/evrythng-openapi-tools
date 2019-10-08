@@ -41,19 +41,25 @@ const generateExampleText = (spec, exampleSummary) => {
  * @param {string} schemaName - Name of the schema to search.
  * @returns {string[]} List of sub schemas to be documented separatey.
  */
-const getSeeAlsoList = (spec, schemaName) => Object
-  .entries(spec.components.schemas[schemaName].properties)
-  .reduce((acc, [propName, propDef]) => {
-    if (propDef.$ref && propDef.$ref.includes('Document')) {
-      return acc.concat(propDef.$ref.split('/')[3]);
-    }
+const getSeeAlsoList = (spec, schemaName) => {
+  if (!spec.components.schemas[schemaName].properties) {
+    console.log(`\nNo properties found for ${schemaName}`);
+    return [];
+  }
 
-    if (propDef.type === 'array' && propDef.items.$ref && propDef.items.$ref.includes('Document')) {
-      return acc.concat(propDef.items.$ref.split('/')[3]);
-    }
+  return Object.entries(spec.components.schemas[schemaName].properties)
+    .reduce((acc, [propName, propDef]) => {
+      if (propDef.$ref && propDef.$ref.includes('Document')) {
+        return acc.concat(propDef.$ref.split('/')[3]);
+      }
 
-    return acc;
-  }, []);
+      if (propDef.type === 'array' && propDef.items.$ref && propDef.items.$ref.includes('Document')) {
+        return acc.concat(propDef.items.$ref.split('/')[3]);
+      }
+
+      return acc;
+    }, []);
+  };
 
 const generateDefinitionText = async (spec, schemaName, exampleSummary) => {
   const derefSpec = await refParser.dereference(JSON.parse(JSON.stringify(spec)));

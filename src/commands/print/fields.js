@@ -146,7 +146,8 @@ const formatAllOfItem = (item, spec, derefSpec, schemaName) => {
 const generateFieldsText = (spec, derefSpec, schemaName) => {
   const { properties, allOf } = derefSpec.components.schemas[schemaName];
   if (!properties && !allOf) {
-    throw new Error('No properties to display.');
+    console.log(`\nNo properties to display for ${schemaName}`);
+    return 'TODO';
   }
 
   // Object has direct properties

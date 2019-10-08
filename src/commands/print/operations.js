@@ -13,7 +13,8 @@ const generateOperationsText = async (spec, tag) => {
   // Find all relevant operations
   const map = buildOperationMap(spec);
   const summaries = map.filter(p => p.operation.tags[0] === tag)
-    .map(p => p.operation.summary);
+    .map(p => p.operation.summary)
+    .sort();
   if (!summaries.length) {
     throw new Error(`No operations found for tag '${tag}'`);
   }

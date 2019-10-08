@@ -132,7 +132,7 @@ const generateCurlSnippet = (data) => {
       throw new Error('requestBody has no example!');
     }
 
-    result += `\\\n  -d '${JSON.stringify(example, null, 2)}'`;
+    result += ` \\\n  -d '${JSON.stringify(example, null, 2)}'`;
   }
 
   return result;

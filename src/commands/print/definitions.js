@@ -26,10 +26,30 @@ const generateDefinitionsText = async (spec, tag) => {
           names.push(responseObj.content['application/json'].schema.$ref.split('/')[3]);
         });
     });
-  const schemaNames = [...new Set(names)];
+
+  let schemaNames = [...new Set(names)];
   if (!schemaNames.length) {
     throw new Error(`No schemas found for tag '${tag}'`);
   }
+
+  // Search for schemas related to already identified schemas.
+  // TODO: Needs to be recursive somehow...
+  schemaNames.forEach((name) => {
+    const { properties } = spec.components.schemas[name];
+    Object.entries(properties).forEach(([, propDef]) => {
+      if (propDef.$ref) {
+        schemaNames.push(propDef.$ref.split('/')[3]);
+      }
+
+      if (propDef.items && propDef.items.$ref) {
+        schemaNames.push(propDef.items.$ref.split('/')[3]);
+      }
+    });
+  });
+
+  // De-dupe final list of document schemas only
+  schemaNames = [...new Set(schemaNames)];
+  schemaNames = schemaNames.filter(p => p.includes('Document')).sort();
 
   // Ask user for ordering
   console.log('\nFound the following related definitions (some may not be relevant for this page):');
