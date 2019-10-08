@@ -63,7 +63,7 @@ const generateDefinitionText = async (spec, schemaName, exampleSummary) => {
   }
 
   // Title and description
-  let output = `___\n\n\n## ${schemaName} Data Model\n\n`;
+  let output = `## ${schemaName} Data Model\n\n`;
   output += `${derefSpec.components.schemas[schemaName].description}\n`;
 
   // Three tab widget with Fields, Schema, and Example
@@ -93,7 +93,7 @@ const generateDefinitionText = async (spec, schemaName, exampleSummary) => {
     output += linkTags.join(', ');
   }
 
-  return output;
+  return output + '\n___\n\n';
 };
 
 /**

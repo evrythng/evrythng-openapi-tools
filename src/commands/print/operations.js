@@ -19,6 +19,7 @@ const generateOperationsText = async (spec, tag) => {
   }
 
   // Ask user for ordering
+  console.log('\nFound the following operations:');
   summaries.forEach((item, i) => console.log(`${i}: ${item}`));
   const order = await getValue('Enter desired ordering as comma separated list');
   const ordering = order.split(',');
@@ -49,4 +50,5 @@ const execute = async (specPath, tag) => {
 
 module.exports = {
   execute,
+  generateOperationsText,
 };

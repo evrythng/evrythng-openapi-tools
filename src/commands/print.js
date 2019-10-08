@@ -7,6 +7,7 @@ const TYPE_MAP = {
   operation: require('./print/operation'),
   operations: require('./print/operations'),
   schema: require('./print/schema'),
+  page: require('./print/page'),
 };
 
 /**

@@ -32,6 +32,7 @@ const generateDefinitionsText = async (spec, tag) => {
   }
 
   // Ask user for ordering
+  console.log('\nFound the following related definitions (some may not be relevant for this page):');
   schemaNames.forEach((item, i) => console.log(`${i}: ${item}`));
   const order = await getValue('Choose which and order as comma separated list');
   const ordering = order.split(',');
@@ -67,4 +68,5 @@ const execute = async (specPath, tag) => {
 
 module.exports = {
   execute,
+  generateDefinitionsText,
 };

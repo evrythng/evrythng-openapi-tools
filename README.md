@@ -66,6 +66,18 @@ Lint all in `schemas` and `paths` for common things like `example`, and
 
 ## Generate Documentation
 
+To generate a page designed for ReadMe.io for a given API, use the `print page`
+command specifying the `tag` for the API. The output will be written to a
+local file of the same name as the `tag`. `specFile` is the complete spec file
+obtained using the `join` command:
+
+`$ evrythng-openapi-tools print $specFile page $tag`
+
+> Some sections and examples will still need to be finished manually.
+
+If more granular printing of individual page sections is needed, use the
+following commands:
+
 - [Print API Status](#print-api-status)
 - [Print Definitions](#print-definitions)
 - [Print Operations](#print-operations)
@@ -100,7 +112,7 @@ output is printed.
 `$ evrythng-openapi-tools print $specFile definitions $tag`
 
 
-### Print Definition
+#### Print Definition
 
 > Included in `definitions`.
 
@@ -114,7 +126,7 @@ will also be generated as expected at the bottom of the widget.
 `$ evrythng-openapi-tools print $specFile definition $schemaName $summaryName`
 
 
-### Print Fields
+#### Print Fields
 
 > Included in `definition`.
 
@@ -124,7 +136,7 @@ documentation purposes.
 `$ evrythng-openapi-tools print $specFile fields $schemaName`
 
 
-### Print Schema
+#### Print Schema
 
 > Included in `definition`.
 
@@ -142,7 +154,7 @@ printed.
 `$ evrythng-openapi-tools print $specFile operations $tag`
 
 
-### Print Operation
+#### Print Operation
 
 > Included in `operations`.
 

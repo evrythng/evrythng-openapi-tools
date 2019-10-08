@@ -8,7 +8,7 @@ const { buildOperationMap, generateReadMeDataBlock } = require('../../util');
  * @returns {string} Preamble in full.
  */
 const generatePreamble = ({ operation, method }) =>
-  `\n## ${operation.summary}\n\n${operation.description}`;
+  `## ${operation.summary}\n\n${operation.description}`;
 
 /**
  * Adapt OpenAPI path templating to ReadMe.io templating.
@@ -300,7 +300,7 @@ const generateOperationText = (spec, summary) => {
     throw new Error('Summary not found');
   }
 
-  return `___\n\n${generatePreamble(found)}\n${generateRequest(found)}\n${generateResponse(found)}`;
+  return `${generatePreamble(found)}\n${generateRequest(found)}\n${generateResponse(found)}\n___\n\n`;
 };
 
 /**
