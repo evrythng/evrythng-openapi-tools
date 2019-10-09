@@ -23,7 +23,6 @@ const generatePreamble = () =>
 
 /**
  * Generate a placeholder for the Jump To list.
- * TODO: Generate this from tag? How to limit too many items?
  *
  * @param {Object} spec - API spec.
  * @param {string} tag - Tag to use.
@@ -45,9 +44,8 @@ const generateJumpTo = async (spec, tag) => {
   const summaries = findSummariesForTag(spec, tag);
   ordered = await askForOrderedList(summaries, prompt);
   ordered.forEach((summary, i, items) => {
-    // Aligns with 'Data Model' in generated titles from definition.js
     // Note - this split/join is approximate - some puctuation may break it
-    output += `[${summary}](#section-${summary.toLowerCase().split(' ').join('_')})`;
+    output += `[${summary}](#section-${summary.toLowerCase().split(' ').join('-')})`;
 
     if (i !== items.length - 1) {
       output += '\n';
