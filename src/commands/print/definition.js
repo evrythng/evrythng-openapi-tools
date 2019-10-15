@@ -2,7 +2,12 @@ const refParser = require('json-schema-ref-parser');
 const yamlJs = require('yamljs');
 const { generateFieldsText } = require('./fields');
 const { generateSchemaText } = require('./schema');
-const { generateReadMeWidget, generateReadMeTable, buildOperationMap } = require('../../util');
+const {
+  generateReadMeWidget,
+  generateReadMeTable,
+  buildOperationMap,
+  backtick,
+} = require('../../util');
 
 /** Definitions that don't go in See Also **/
 const SEE_ALSO_EXCEPTIONS = ['CustomFieldsDocument', 'IdentifiersDocument', 'TagsDocument'];
@@ -104,8 +109,8 @@ const generateDefinitionText = async (spec, schemaName, exampleSummary) => {
   if (filterableFields) {
     const headers = ['Field', 'Type', 'Operators'];
     const rows = filterableFields.reduce((res, item) => {
-      const operators = item.operators.map(p => '`' + p + '`').join(', ');
-      res.push([item.name, item.type, operators]);
+      const operators = item.operators.map(backtick).join(', ');
+      res.push([backtick(item.name), item.type, operators]);
       return res;
     }, []);
     output += '\n\n### Filterable Fields\n';

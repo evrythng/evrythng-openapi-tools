@@ -184,6 +184,14 @@ const askForOrderedList = async (items, prompt) => {
   return ordered;
 };
 
+/**
+ * Surround a string in backticks.
+ *
+ * @param {string} str - String to surround in backticks.
+ * @param {string} String surrounded by backtick.
+ */
+const backtick = str => '`' + str + '`';
+
 module.exports = {
   expand,
   generateReadMeWidget,
@@ -192,4 +200,5 @@ module.exports = {
   buildOperationMap,
   getValue,
   askForOrderedList,
+  backtick,
 };
