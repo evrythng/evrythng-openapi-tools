@@ -102,7 +102,6 @@ const generateReadMeTable = (headers, rows) => {
       table.data[`${rowIndex}-${colIndex}`] = cell;
     });
   });
-  console.log(JSON.stringify(table, null, 2));
 
   return generateReadMeWidget('parameters', table);
 };
