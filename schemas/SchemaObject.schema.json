@@ -91,6 +91,28 @@
           ]
         }
       }
+    },
+    "x-filterable-fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "type", "operators"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "operators": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
     }
   }
 }
