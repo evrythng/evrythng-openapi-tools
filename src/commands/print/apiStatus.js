@@ -1,5 +1,5 @@
 const yamlJs = require('yamljs');
-const { buildOperationMap, generateReadMeDataBlock } = require('../../util');
+const { buildOperationMap } = require('../../util');
 
 /**
  * Print the API status for all paths matching the tag.

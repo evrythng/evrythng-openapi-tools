@@ -70,11 +70,41 @@ const expand = (spec, target) => {
 /**
  * Generate a ReadMe.io format data block.
  *
+ * @param {string} type - ReadMe specific block type ('code' for syntax block, 'parameters' for table)
  * @param {object} readMeData - ReadMe format JSON data.
  * @returns {string} The ReadMe.io data block.
  */
-const generateReadMeDataBlock = readMeData =>
-  `[block:code]\n${JSON.stringify(readMeData, null, 2)}\n[/block]`;
+const generateReadMeWidget = (type, readMeData) =>
+  `[block:${type}]\n${JSON.stringify(readMeData, null, 2)}\n[/block]`;
+
+/**
+ * Generate a ReadMe.io format table widget from rows of data.
+ *
+ * @param {string[]} headers - Table headers.
+ * @param {[][]} rows - Array of arrays, each containing row values.
+ * @returns {string} The ReadMe.io table widget string.
+ */
+const generateReadMeTable = (headers, rows) => {
+  const table = {
+    data: {},
+    cols: headers.length,
+    rows: rows.length,
+  };
+
+  // Add the headers
+  headers.forEach((header, i) => {
+    table.data[`h-${i}`] = header;
+  });
+
+  // Add the data
+  rows.forEach((row, rowIndex) => {
+    row.forEach((cell, colIndex) => {
+      table.data[`${rowIndex}-${colIndex}`] = cell;
+    });
+  });
+
+  return generateReadMeWidget('parameters', table);
+};
 
 /**
  * Build a map of operations to their path and method.
@@ -154,11 +184,30 @@ const askForOrderedList = async (items, prompt) => {
   return ordered;
 };
 
+/**
+ * Surround a string in backticks.
+ *
+ * @param {string} str - String to surround in backticks.
+ * @param {string} String surrounded by backtick.
+ */
+const backtick = str => '`' + str + '`';
+
+/**
+ * Capitalise a string.
+ *
+ * @param {string} str - String to capitalise.
+ * @param {string} Capitalised string.
+ */
+const capitalise = str => str.charAt(0).toUpperCase() + str.slice(1);
+
 module.exports = {
   expand,
-  generateReadMeDataBlock,
+  generateReadMeWidget,
+  generateReadMeTable,
   lintWithSchema,
   buildOperationMap,
   getValue,
   askForOrderedList,
+  backtick,
+  capitalise,
 };

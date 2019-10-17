@@ -1,5 +1,5 @@
 const yamlJs = require('yamljs');
-const { buildOperationMap, generateReadMeDataBlock } = require('../../util');
+const { buildOperationMap, generateReadMeWidget } = require('../../util');
 
 /**
  * Print the operation's summary as a preamble.
@@ -258,7 +258,7 @@ const generateResponseSnippet = (data) => {
  * @param {object} data - Data about the operation.
  * @returns {string} Formatted request snippet in multiple languages.
  */
-const generateRequest = data => generateReadMeDataBlock({
+const generateRequest = data => generateReadMeWidget('code', {
   codes: [{
     language: 'http',
     code: generateHttpSnippet(data),
@@ -278,7 +278,7 @@ const generateRequest = data => generateReadMeDataBlock({
  * @param {object} data - Data about the operation.
  * @returns {string} Formatted response snippets.
  */
-const generateResponse = data => generateReadMeDataBlock({
+const generateResponse = data => generateReadMeWidget('code', {
   codes: [{
     language: 'http',
     code: generateResponseSnippet(data),

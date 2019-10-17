@@ -2,7 +2,13 @@ const refParser = require('json-schema-ref-parser');
 const yamlJs = require('yamljs');
 const { generateFieldsText } = require('./fields');
 const { generateSchemaText } = require('./schema');
-const { generateReadMeDataBlock, buildOperationMap } = require('../../util');
+const {
+  generateReadMeWidget,
+  generateReadMeTable,
+  buildOperationMap,
+  backtick,
+  capitalise,
+} = require('../../util');
 
 /** Definitions that don't go in See Also **/
 const SEE_ALSO_EXCEPTIONS = ['CustomFieldsDocument', 'IdentifiersDocument', 'TagsDocument'];
@@ -73,7 +79,7 @@ const generateDefinitionText = async (spec, schemaName, exampleSummary) => {
   output += `${derefSpec.components.schemas[schemaName].description}\n`;
 
   // Three tab widget with Fields, Schema, and Example
-  output += generateReadMeDataBlock({
+  output += generateReadMeWidget('code', {
     codes: [{
       name: 'Fields',
       language: 'text',
@@ -97,6 +103,19 @@ const generateDefinitionText = async (spec, schemaName, exampleSummary) => {
     const linkTags = seeAlsoMap
       .map(defName => '[`' + defName + '`](#section-' + defName.toLowerCase() + '-data-model)');
     output += linkTags.join(', ');
+  }
+
+  // Filterable fields table
+  const filterableFields = derefSpec.components.schemas[schemaName]['x-filterable-fields'];
+  if (filterableFields) {
+    const headers = ['Field', 'Type', 'Operators'];
+    const rows = filterableFields.reduce((res, item) => {
+      const operators = item.operators.map(backtick).join(', ');
+      res.push([backtick(item.name), capitalise(item.type), operators]);
+      return res;
+    }, []);
+    output += '\n\n### Filterable Fields\n\nThis resource type can be filtered using the following fields and operators.\n';
+    output += generateReadMeTable(headers, rows);
   }
 
   return output + '\n___\n\n';
