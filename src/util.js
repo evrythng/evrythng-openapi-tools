@@ -192,6 +192,14 @@ const askForOrderedList = async (items, prompt) => {
  */
 const backtick = str => '`' + str + '`';
 
+/**
+ * Capitalise a string.
+ *
+ * @param {string} str - String to capitalise.
+ * @param {string} Capitalised string.
+ */
+const capitalise = str => str.charAt(0).toUpperCase() + str.slice(1);
+
 module.exports = {
   expand,
   generateReadMeWidget,
@@ -201,4 +209,5 @@ module.exports = {
   getValue,
   askForOrderedList,
   backtick,
+  capitalise,
 };

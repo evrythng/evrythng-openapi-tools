@@ -7,6 +7,7 @@ const {
   generateReadMeTable,
   buildOperationMap,
   backtick,
+  capitalise,
 } = require('../../util');
 
 /** Definitions that don't go in See Also **/
@@ -110,10 +111,10 @@ const generateDefinitionText = async (spec, schemaName, exampleSummary) => {
     const headers = ['Field', 'Type', 'Operators'];
     const rows = filterableFields.reduce((res, item) => {
       const operators = item.operators.map(backtick).join(', ');
-      res.push([backtick(item.name), item.type, operators]);
+      res.push([backtick(item.name), capitalise(item.type), operators]);
       return res;
     }, []);
-    output += '\n\n### Filterable Fields\n';
+    output += '\n\n### Filterable Fields\n\nThis resource type can be filtered using the following fields and operators.\n';
     output += generateReadMeTable(headers, rows);
   }
 
