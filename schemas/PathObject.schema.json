@@ -96,7 +96,7 @@
         "responses": {
           "additionalProperties": false,
           "patternProperties": {
-            "202|204|301|307|400|401|403|404|409|415|500": {
+            "202|204|301|307|400|401|403|404|409|415|423|500": {
               "required": [
                 "description"
               ],
