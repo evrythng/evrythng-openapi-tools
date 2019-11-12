@@ -82,6 +82,7 @@ following commands:
 - [Print Definitions](#print-definitions)
 - [Print Operations](#print-operations)
 - [Print Filter Table](#print-filter-table)
+- [Print API Key Permissions List](#print-api-key-permissions-list)
 
 
 ### Print API Status
@@ -170,6 +171,14 @@ Print a ReadMe.io-compatible table widget for use in the Filters documentation
 page as the list of 'Available Fields' for all resource types.
 
 `$ evrythng-openapi-tools print filter-table`
+
+
+### Print API Key Permissions List
+
+Print the list of endpoints and which keys can access them as shown in the
+_API Keys and Permissions_ page.
+
+`$ evrythng-openapi-tools print $specFile keyPermissions`
 
 
 ## Directory Structure
