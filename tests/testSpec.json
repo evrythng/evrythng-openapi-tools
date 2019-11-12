@@ -7,7 +7,10 @@
           "Examples"
         ],
         "summary": "See all examples",
-        "description": "See an example operation, right in the tests!"
+        "description": "See an example operation, right in the tests!",
+        "x-api-keys": [
+          "Operator"
+        ]
       }
     },
     "/examplePath/{exampleId}": {
@@ -72,7 +75,11 @@
               }
             }
           }
-        }
+        },
+        "x-api-keys": [
+          "Operator",
+          "Trusted Application"
+        ]
       }
     }
   },

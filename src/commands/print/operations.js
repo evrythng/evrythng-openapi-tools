@@ -41,6 +41,7 @@ const generateOperationsText = async (spec, tag) => {
 /**
  * Print all operations as ReadMe.io format request/response pairs.
  *
+ * @param {string} specPath - The path to the OpenAPI spec file.
  * @param {string} tag - Summary to use for operation search.
  */
 const execute = async (specPath, tag) => {

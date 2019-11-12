@@ -1,13 +1,15 @@
+/** Map of print subcommands and their code. */
 const TYPE_MAP = {
   'api-status': require('./print/apiStatus'),
   'filter-table': require('./print/filterTable'),
   definition: require('./print/definition'),
   definitions: require('./print/definitions'),
   fields: require('./print/fields'),
+  keyPermissions: require('./print/keyPermissions'),
   operation: require('./print/operation'),
   operations: require('./print/operations'),
-  schema: require('./print/schema'),
   page: require('./print/page'),
+  schema: require('./print/schema'),
 };
 
 /**

@@ -306,6 +306,7 @@ const generateOperationText = (spec, summary) => {
 /**
  * Print a ReadMe.io format request/response pair.
  *
+ * @param {string} specPath - The path to the OpenAPI spec file.
  * @param {string} summary - Summary to use for operation search.
  */
 const execute = async (specPath, summary) => {

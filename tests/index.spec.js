@@ -4,6 +4,7 @@ const printFields = require('../src/commands/print/fields');
 const printSchema = require('../src/commands/print/schema');
 const printOperation = require('../src/commands/print/operation');
 const printApiStatus = require('../src/commands/print/apiStatus');
+const printKeyPermissions = require('../src/commands/print/keyPermissions');
 
 const SPEC = require('./testSpec.json');
 
@@ -97,10 +98,7 @@ ___`;
 
   describe('printOperation', () => {
     it('should print expected operation snippet', async () => {
-      const expected = `___
-
-
-## Create an example
+      const expected = `## Create an example
 
 Create a new example.
 [block:code]
@@ -112,7 +110,7 @@ Create a new example.
     },
     {
       "language": "curl",
-      "code": "curl -i -H Content-Type:application/json \\\\\\n  -H Authorization:$OPERATOR_API_KEY \\\\\\n  -X POST https://api.evrythng.com/examplePath/:exampleId\\\\\\n  -d '{\\n  \\"name\\": \\"Some example object\\",\\n  \\"tags\\": [\\n    \\"example\\"\\n  ],\\n  \\"fruits\\": [\\n    \\"apples\\",\\n    \\"pairs\\"\\n  ],\\n  \\"location\\": {\\n    \\"type\\": \\"Point\\",\\n    \\"coordinates\\": [\\n      -0.9,\\n      -51.1\\n    ]\\n  }\\n}'"
+      "code": "curl -i -H Content-Type:application/json \\\\\\n  -H Authorization:$OPERATOR_API_KEY \\\\\\n  -X POST https://api.evrythng.com/examplePath/:exampleId \\\\\\n  -d '{\\n  \\"name\\": \\"Some example object\\",\\n  \\"tags\\": [\\n    \\"example\\"\\n  ],\\n  \\"fruits\\": [\\n    \\"apples\\",\\n    \\"pairs\\"\\n  ],\\n  \\"location\\": {\\n    \\"type\\": \\"Point\\",\\n    \\"coordinates\\": [\\n      -0.9,\\n      -51.1\\n    ]\\n  }\\n}'"
     },
     {
       "name": "evrythng.js",
@@ -132,9 +130,28 @@ Create a new example.
     }
   ]
 }
-[/block]`;
+[/block]
+___
+
+`;
 
       const result = printOperation.generateOperationText(SPEC, 'Create an example');
+      expect(result).to.equal(expected);
+    });
+  });
+
+  describe('printKeyPermissions', () => {
+    it('should print expected key permissions snippet', async () => {
+      const expected = `
+* \`/examplePath\`
+  * \`GET\` - See all examples (O)
+
+* \`/examplePath/:exampleId\`
+  * \`POST\` - Create an example (O, T)
+
+`;
+
+      const result = printKeyPermissions.generateKeyPermissionsText(SPEC);
       expect(result).to.equal(expected);
     });
   });
