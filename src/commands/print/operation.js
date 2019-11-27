@@ -8,7 +8,7 @@ const { buildOperationMap, generateReadMeWidget } = require('../../util');
  * @returns {string} Preamble in full.
  */
 const generatePreamble = ({ operation, method }) =>
-  `## ${operation.summary}\n\n${operation.description}`;
+  `## ${operation.summary}\n\n${operation.description}`;
 
 /**
  * Adapt OpenAPI path templating to ReadMe.io templating.
