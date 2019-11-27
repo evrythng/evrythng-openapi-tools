@@ -124,6 +124,9 @@ in its `responses`.
 If the definition contains any `$ref` to other schemas, A 'See Also' section
 will also be generated as expected at the bottom of the widget.
 
+If the definition includes `x-filterable-fields`, a table of filterable fields
+and supported operators will be included as well.
+
 `$ evrythng-openapi-tools print $specFile definition $schemaName $summaryName`
 
 
