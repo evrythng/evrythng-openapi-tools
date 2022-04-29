@@ -88,7 +88,8 @@
               "Application",
               "Application User",
               "Device",
-              "Trusted Application"
+              "Trusted Application",
+              "Access Token"
             ],
             "minumum": 1
           }

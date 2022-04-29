@@ -98,7 +98,7 @@ ___`;
 
   describe('printOperation', () => {
     it('should print expected operation snippet', async () => {
-      const expected = `## Create an example
+      const expected = `## Create an example
 
 Create a new example.
 [block:code]
