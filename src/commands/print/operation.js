@@ -75,6 +75,9 @@ const getApiKeyType = (operation) => {
   if (keys.includes('Device')) {
     return 'DEVICE_API_KEY';
   }
+  if (keys.includes('Access Token')) {
+    return 'ACCESS_TOKEN_API_KEY';
+  }
 
   return 'OPERATOR_API_KEY';
 };
